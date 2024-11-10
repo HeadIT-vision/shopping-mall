@@ -1,0 +1,14 @@
+/* 헤더 */
+header {
+    background-color: #E8EFF5;
+    min-height: 120px;
+}
+.header-title {
+    font-family: "Sour Gummy", sans-serif;
+    color: #06559D;
+}
+/* layout.css */
+body {
+    background-color: #fff;
+    font-family: "Jua", sans-serif;
+}
