@@ -1,4 +1,4 @@
-package com.vision.shoppingmall.controller;
+package com.vision.shoppingmall.product.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
