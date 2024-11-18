@@ -7,8 +7,8 @@
     <title>Product List</title>
 </head>
 <body>
-<section layout:fragment="content">
-
+<section layout:fragment="contentFragment">
+    <div th:replace="~{common/fragments/title :: titleFragment(title=${'제품 관리'})}"></div>
 </section>
 </body>
 </html>
