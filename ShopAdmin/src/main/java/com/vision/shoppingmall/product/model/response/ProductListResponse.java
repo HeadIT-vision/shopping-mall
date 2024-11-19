@@ -1,4 +1,4 @@
-package com.vision.shoppingmall.product.response;
+package com.vision.shoppingmall.product.model.response;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import java.math.BigInteger;
 @Setter
 @RequiredArgsConstructor
 public class ProductListResponse {
-    private final BigInteger id;
+    private final Long id;
     private final String productName;
 
     private final String publisherName;

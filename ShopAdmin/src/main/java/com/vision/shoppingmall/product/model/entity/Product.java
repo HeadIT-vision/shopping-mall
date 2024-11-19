@@ -1,4 +1,4 @@
-package com.vision.shoppingmall.product.entity;
+package com.vision.shoppingmall.product.model.entity;
 
 import com.vision.shoppingmall.category.model.entity.Category;
 import jakarta.persistence.*;
@@ -36,7 +36,7 @@ public class Product {
     @Column(name = "unit_price", nullable = false)
     private Double unitPrice;
 
-    @Column(name = "discount_price", precision = 10, scale = 2)
+    @Column(name = "discount_price")
     private Double discountPrice;
 
     @Column(name = "selling_price", nullable = false)
