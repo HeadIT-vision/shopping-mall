@@ -21,13 +21,6 @@ public class CategoryApiController {
 
   private final CategoryService categoryService;
 
-//  @GetMapping("")
-//  public String getCategoryList(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
-//    //    List<CategoryListResponse> result = List.of(new CategoryListResponse());
-//    //    return ResponseEntity
-//    //        .ok(result);
-//  }
-
   @GetMapping("")
   public String getCategoryList(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
     Page<CategoryListResponse> paging = categoryService.getCategories(page);
