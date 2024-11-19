@@ -7,6 +7,7 @@ import lombok.*;
 @Entity(name = "categories")
 @NoArgsConstructor
 @Data
+@Getter
 public class Category {
 
   @Id
