@@ -1,0 +1,33 @@
+version: '3'
+services:
+    mysql:
+      image: mysql:8.0
+      networks:
+        - shop-network
+      volumes:
+        - ./db/conf.d/:/etc/mysql/conf.d
+        - ./db/data/:/var/lib/mysql
+        - ./db/initdb.d:/docker-entrypoint-initdb.d
+      ports:
+        - "3306:3306"
+      env_file:
+        - ./db/.env
+    shop-admin:
+      build:
+          context: .
+          dockerfile: ./ShopAdmin/Dockerfile
+      networks:
+        - shop-network
+      ports:
+        - "8080:8080"
+      depends_on:
+        - mysql
+      environment:
+        - SPRING_DATASOURCE_URL=jdbc:mysql://mysql/shop?serverTimezone=Asia/Seoul&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true
+        - SPRING_DATASOURCE_USERNAME=shopuser
+        - SPRING_DATASOURCE_PASSWORD=P@ssw0rd
+        - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
+        - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+networks:
+    shop-network:
+        driver: bridge
