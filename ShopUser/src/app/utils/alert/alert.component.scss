@@ -1,0 +1,58 @@
+/* 취소하기 버튼 클릭 시 */
+.popup {
+  width: 500px;
+  height: 284px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-radius: 0.5em;
+}
+
+.popup__header {
+  padding-top: 37px;
+}
+
+.popup__header--text {
+  font-size: 18px;
+}
+
+.custom-dialog-content {
+  color: #333333;
+  font-family: "Pretendard";
+}
+
+.popup__close {
+  color: #767676;
+  margin-right: 15px;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+.popup button.cancel {
+  width: 128px;
+  height: 56px;
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #D0D0D0;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+.popup button.confirm {
+  width: 128px;
+  height: 56px;
+  background-color: #0A1754;
+  color: #FFFFFF;
+  border: 1px solid #0A1754;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+.custom-dialog-content {
+  white-space: pre-wrap;
+}

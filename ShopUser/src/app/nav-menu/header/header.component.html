@@ -1,0 +1,28 @@
+<nav class="header" fxLayout="row" fxLayoutAlign="center center">
+
+  <div class="header__logo" fxFlex="17">
+    <a href="/"><img class="img-responive" src="../../../assets/images/headit_logo_white.png" /></a>
+  </div>
+
+  <div class="search__wrap" fxFlex="57" fxLayout="row" fxLayoutAlign=" center">
+    <div class="search__area search__box" fxLayoutAlign=" center">
+      <input class="search__input text-sm" type="text" (change)="onSearchProduct()" [(ngModel)]="searchProductNameInput" placeholder="상품명을 검색하세요." />
+    </div>
+    <div class="search__button" fxLayoutAlign=" center">
+      <img src="../../../assets/images/search_btn.png" />
+    </div>
+    <div class="header__button-container" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="40px">
+      <button class="header__button home-button font-16 semi-bold sb-200" (click)="navigateToHeadIT()">헤드아이티 홈페이지</button>
+      <button class="header__button blog-button font-16 semi-bold" (click)="navigateToHeyWorks()">헤이웍스 블로그</button>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="30px">
+    <button fxLayoutAlign=" center" class="header-button text-sm regular bc-800" (click)="goToProductBasket()">장바구니
+      <img class="img-responive cart" src="../../../assets/images/shopping_basket.png" />
+      <div class="header__cart--count" fxLayoutAlign="center center">{{ basketItemCount }}</div>
+    </button>
+    <button class="header-button text-sm regular bc-800" (click)="goToProductConsulting()">상담 요청</button>
+  </div>
+
+</nav>

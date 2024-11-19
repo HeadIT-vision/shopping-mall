@@ -1,0 +1,83 @@
+<mat-card>
+  <div class="product-basket__header">
+    <label class="font-18 bold">제품 확인</label>
+    <span [mat-dialog-close]="true"><img src="../../../../../assets/images/close.png"></span>
+  </div>
+
+  <div fxLayout="column" fxLayoutGap="24">
+    <div>
+      <div fxLayout="row">
+        <div class="product-baskets__header-cell"></div>
+        <div class="product-baskets__header-cell pr-14" fxLayoutAlign=" center">상품명</div>
+        <div class="product-baskets__header-cell" fxLayoutAlign=" center">제품가격</div>
+        <div class="product-baskets__header-cell" fxLayoutAlign=" center">제품수량</div>
+      </div>
+
+      <div fxLayout="row">
+        <!-- 상품 이미지 -->
+        <div class="product-baskets__cell" fxLayoutAlign="center center">
+          <img [src]="data.selectedProduct.image.thumbnailImageBase64" />
+        </div>
+        <!-- 상품명 -->
+        <div class="product-baskets__cell pr-14" fxLayoutAlign=" center">
+          <div fxLayout="column">
+            <span class="text-md semi-bold mc-500">[{{ data.selectedProduct.vendorName }}]</span>
+            <span class="font-14 regular bc-800">{{ data.selectedProduct.productName }}</span>
+          </div>
+        </div>
+        <!-- 제품가격 -->
+        <div class="product-baskets__cell font-24 semi-bold bc-900" fxLayout="column" fxLayoutAlign="center">
+          {{ data.selectedProduct.currentPrice?.supplyPrice | number }}원
+          <span *ngIf="data.selectedProduct.currentPrice?.sellingPrice - data.selectedProduct.currentPrice?.supplyPrice != 0" class="discount-price font-14 regular">
+            {{ data.selectedProduct.currentPrice?.sellingPrice | number }}원
+          </span>
+        </div>
+        <!-- 제품수량 -->
+        <div class="product-baskets__cell" fxLayoutAlign=" center">
+          <span>
+            <button class="btn minus-count" [disabled]="minusBtnDisabled" (click)="decreaseQuantity()">
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <input class="inp product-count" type="text" [value]="data.selectedProduct.quantity" min="1" maxlength="5" (input)="checkProductCount($event)" (blur)="checkEmpty($event)">
+            <button class="btn plus-count" (click)="increaseQuantity()">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="end">
+      <div fxLayout="column" fxLayoutGap="24">
+        <div class="product-baskets__total-price text-md bc-800" fxLayout="column">
+
+          <div class="division-line" fxLayout="column" fxLayoutGap="8">
+            <div fxLayoutAlign="space-between">
+              <label>할인 전 주문금액</label>
+              <span>
+                {{ data.selectedProduct.currentPrice.sellingPrice * data.selectedProduct.quantity | number }} 원
+              </span>
+            </div>
+            <div fxLayoutAlign="space-between">
+              <label>할인 금액</label>
+              <span> - {{ ((data.selectedProduct.currentPrice.sellingPrice - data.selectedProduct.currentPrice.supplyPrice) * data.selectedProduct.quantity) | number }} 원</span>
+            </div>
+          </div>
+
+          <div class="mc-orange" fxLayoutAlign="space-between">
+            <label>총 주문금액</label>
+            <span class="font-24 semi-bold"> {{ data.selectedProduct.currentPrice.supplyPrice * data.selectedProduct.quantity | number }}<span> 원</span></span>
+          </div>
+
+        </div>
+
+        <div fxLayoutAlign="center">
+          <button type="button" class="btn-cancel text-md bold" [mat-dialog-close]="true">취소하기</button>
+          <button type="button" class="btn-get-basket text-md bold" [mat-dialog-close]="true" (click)="onAddToBasket(data.selectedProduct.id, this.quantity)">장바구니 담기</button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</mat-card>

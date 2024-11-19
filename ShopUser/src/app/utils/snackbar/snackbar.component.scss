@@ -1,0 +1,23 @@
+.snackbar {
+  position: fixed;
+  width: 531px;
+  height: 80px;
+  background-color: #FFFFFF;
+  color: #333333;
+  border-radius: 10px;
+  border: 1px solid #DDDD;
+  bottom: 800px;
+}
+
+.snackbar__context {
+  width: 490px;
+}
+
+.snackbar__close {
+  cursor: pointer;
+}
+
+::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background-color: transparent;
+  box-shadow: none;
+}

@@ -1,0 +1,77 @@
+<div fxLayout="column" fxLayoutGap="48">
+
+  <div fxLayout="column" fxLayoutGap="32">
+    <span class="bc-500 pt-20"><a routerLink="/product">Home</a> > <span class="bc-900">{{ productCategoryFullPath }} </span> </span>
+    <label class="title-md semi-bold">{{ productDetailData?.productName }}</label>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="121">
+    <div fxLayout="row" fxLayoutGap="24">
+      <div class="product-info__image-box" fxLayoutAlign="center center">
+        <img *ngIf="productDetailData?.image" [src]="productDetailData.image.mainImageBase64" alt="Product Image" />
+        <span *ngIf="!productDetailData?.image">이미지 준비 중...</span>
+      </div>
+    </div>
+
+
+    <div fxLayout="column" fxLayoutGap="48">
+      <!-- 제조사명 정보 -->
+      <div fxLayout="row" fxLayoutGap="181" fxLayoutAlign=" center">
+        <label class="text-md">제조사명</label>
+        <span class="font-24 semi-bold">{{ productDetailData?.vendorName }}</span>
+      </div>
+      <!-- 할인 가격 정보 -->
+      <div class="product-info__discount-price" fxLayout="row" fxLayoutGap="181" fxLayoutAlign=" center">
+        <label class="text-md">제품가격</label>
+        <div fxFlexAlign="row">
+          <span class="font-24 semi-bold mc-300" *ngIf="productDetailData?.currentPrice.supplyPrice !== productDetailData?.currentPrice.sellingPrice">
+            {{ getDiscountPercentage(productDetailData?.currentPrice.sellingPrice, productDetailData?.currentPrice.discountRate) }}%
+            <span class="discount-price">{{ productDetailData?.currentPrice.sellingPrice | number }}원</span>
+          </span>
+          <div class="pt-8">
+            <span class="font-32 semi-bold bc-900">{{ productDetailData?.currentPrice.supplyPrice | number }}<span class="text-md medium"> 원</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 총 가격 정보 -->
+      <div class="product-info__total-price" fxLayout="column" fxLayoutGap="48">
+        <p class="bc-800">[{{ productDetailData?.vendorName }}] {{ productDetailData?.productName }}</p>
+        <div fxLayoutAlign="space-between center">
+          <span>
+            <button class="btn minus-count" [disabled]="minusBtnDisabled" (click)="decreaseQuantity()"><i class="fa-solid fa-minus"></i></button>
+            <input class="inp product-count" type="text" [value]="productDetailData?.quantity" min="1" maxlength="5" (input)="checkProductCount($event)" (blur)="checkEmpty($event)">
+            <button class="btn plus-count" (click)="increaseQuantity()"><i class="fa-solid fa-plus"></i></button>
+          </span>
+
+          <span class="title-md mc-orange semi-bold">
+            {{ productDetailData?.currentPrice.supplyPrice * productDetailData?.quantity | number }}
+            <span class="text-sm bc-800">원</span>
+          </span>
+
+        </div>
+      </div>
+
+      <!-- 상담 장바구니 -->
+      <button class="btn consult-basket font-20 semi-bold" type="button" (click)="goToConsultBasketPage(productDetailData?.id, productDetailData?.quantity)"
+        [disabled]="productDetailData?.isSaleable === false">상담 장바구니</button>
+    </div>
+  </div>
+
+  <div fxLayout="column" fxLayoutGap="137">
+    <div class="product-info__detail" fxLayoutAlign="center">
+      <label class="title-md semi-bold">제품 상세정보</label>
+    </div>
+
+    <div fxLayoutAlign="center">
+      <ng-container *ngIf="decodedImageSrc; else elseBlock">
+        <img [src]="decodedImageSrc" />
+      </ng-container>
+      <ng-template #elseBlock>
+        <img [src]="productDetailData?.description" />
+      </ng-template>
+    </div>
+  </div>
+
+</div>

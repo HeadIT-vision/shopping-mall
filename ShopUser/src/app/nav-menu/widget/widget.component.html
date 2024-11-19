@@ -1,0 +1,28 @@
+<div class="sidebar" *ngIf="isSidebarOpen" fxLayout="column" fxLayoutGap="8" >
+  <div class="sidebar__close" fxLayout="row" fxLayoutAlign="end" (click)="onCloseSidebar()">
+    <img src="../../../assets/images/close_icon.png" />
+  </div>
+
+  <mat-card class="product__history" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="9">
+    <label class="text-sm bc-800">히스토리</label>
+    <div fxLayout="column" fxLayoutGap="8" [ngStyle]="maxCnt<productHistory.length? { 'max-height': availableHeight+'px', 'overflow-y': 'auto', 'scrollbar-width' : 'none'}: {}">
+      <div *ngFor="let product of productHistory | slice:0:(showAllProducts ? productHistory.length : maxCnt)">
+        <div class="product__box" (click)="goToProductDetailPage(product.id)" fxLayoutAlign="center center">
+          <img [src]="product.image.thumbnailImageBase64" />
+        </div>
+      </div>
+    </div>
+    <div *ngIf="productHistory.length > 5">
+      <button class="btn__moreHistory" (click)="showMoreHistory()">
+        <i class="fa-solid" [ngClass]="showAllProducts ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+      </button>
+    </div>
+    <div class="caption align" *ngIf="!productHistory || productHistory.length === 0" fxLayoutAlign="center center">
+      <p>최근 본 제품이 없습니다.</p>
+    </div>
+  </mat-card>
+</div>
+<div>
+  <div>
+    <button *ngIf="showTopButton" type="button" class="btn-top" (click)="scrollToTop()">TOP</button>
+  </div>
