@@ -23,7 +23,7 @@ services:
       depends_on:
         - mysql
       environment:
-        - SPRING_DATASOURCE_URL=jdbc:mysql://mysql/shop?serverTimezone=Asia/Seoul&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true
+        - SPRING_DATASOURCE_URL=jdbc:mysql://mysql/shopdb?serverTimezone=Asia/Seoul&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true
         - SPRING_DATASOURCE_USERNAME=shopuser
         - SPRING_DATASOURCE_PASSWORD=P@ssw0rd
         - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
