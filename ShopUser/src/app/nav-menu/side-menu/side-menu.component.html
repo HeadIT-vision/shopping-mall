@@ -1,0 +1,31 @@
+<div fxLayout="column" fxLayoutGap="20">
+
+  <mat-card class="category" fxLayout="column" fxLayoutGap="10">
+    <div fxLayout="row" fxLayoutAlign=" center" fxLayoutGap="4">
+      <img class="category-icon" src="../../../assets/images/category_@x2.png" />
+      <label class="text-md">카테고리</label>
+    </div>
+
+    <ng-template #tmplNode let-node="node">
+      <div *ngIf="node.isDisplayed" class="custom-checkbox-container" [ngClass]="{'parent-node': node.isChecked, 'child-node': node.isChecked && node.parentId}" fxLayoutAlign="space-between center">
+        <mat-checkbox [checked]="node.isChecked" (change)="toggleCategorySelection(node)">{{ node.categoryName }}</mat-checkbox>
+        <i class="fa-solid fa-chevron-down right" *ngIf="hasDisplayedChildren(node) && !node.isExpanded" (click)="node.isExpanded=!node.isExpanded"></i>
+        <i class="fa-solid fa-chevron-up right" *ngIf="hasDisplayedChildren(node) && node.isExpanded" (click)="node.isExpanded=!node.isExpanded"></i>
+      </div>
+
+      <div *ngIf="node.isExpanded && node.children.length" fxLayout="column" fxLayoutGap="10">
+        <div class="node-children" *ngFor="let child of node.children" fxLayout="column" fxLayoutGap="10">
+          <ng-container *ngTemplateOutlet="tmplNode,context:{node:child}"></ng-container>
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="text-sm" fxLayout="column" fxLayoutGap="10">
+      <div *ngFor="let node of categoryList" fxLayout="column" fxLayoutGap="10">
+        <ng-container *ngTemplateOutlet="tmplNode,context:{node:node}"></ng-container>
+      </div>
+    </div>
+  </mat-card>
+
+
+</div>

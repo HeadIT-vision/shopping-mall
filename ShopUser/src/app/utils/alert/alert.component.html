@@ -1,0 +1,19 @@
+<div class="popup" fxLayout="column" fxLayoutGap="25">
+  <div class="popup__header pl-40" fxLayout="row" fxLayoutGap="310px">
+    <label class="popup__header--text bold font-18">{{data.title}}</label>
+    <span class="popup__close" (click)="closeDialog(false)">
+      &times;
+    </span>
+  </div>
+  <div fxLayout="column" fxLayoutGap="25">
+    <div class="popup__context pl-16 font-14" fxLayout="column" fxLayoutAlign="center start">
+      <div>
+        <mat-dialog-content class="custom-dialog-content" [innerHTML]="data.content"></mat-dialog-content>
+      </div>
+    </div>
+      <div fxLayout="row" fxLayoutAlign="center end" fxLayoutGap="8px">
+        <button class="cancel font-16 bold" (click)="closeDialog(false)">{{data.deletebutton}}</button>
+        <button class="confirm font-16 bold" (click)="closeDialog(true)">{{data.registerbutton}}</button>
+      </div>
+  </div>
+</div>

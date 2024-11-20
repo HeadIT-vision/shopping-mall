@@ -1,0 +1,16 @@
+<div class="popup" fxLayout="column">
+  <div class="popup__header pl-40" fxLayout="row" fxLayoutGap="326px">
+    <label class="popup__header--text bold font-18">{{data.title}}</label>
+    <span class="popup__close" (click)="closeDialog(false)">
+      <i class="fas fa-xmark"></i>
+    </span>
+  </div>
+  <div class="popup__context pl-16 font-14" fxLayout="column">
+    <div class="popup__context--content">
+      <mat-dialog-content [innerHTML]="data.content"></mat-dialog-content>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button class="confirm font-16 bold" (click)="closeDialog(true)">확인</button>
+  </div>
+</div>

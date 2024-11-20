@@ -1,0 +1,137 @@
+.mat-mdc-card {
+  width: 220px;
+  height: 271px;
+  padding: 20px 16px 30px 16px;
+  border: 1px solid #E2E2E2;
+  border-radius: 6px;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.vendors__list {
+  overflow-y: auto;
+}
+
+.vendors__list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.vendors__list::-webkit-scrollbar-track {
+  background-color: #F1F1F1;
+}
+
+.vendors__list::-webkit-scrollbar-thumb {
+  background-color: #BFBFBF;
+}
+
+.category {
+  height: auto;
+}
+
+.node-children {
+  padding-left: 28px;
+}
+
+.right {
+  float: right;
+  cursor: pointer;
+}
+
+.category-icon {
+  width: 24px;
+  height: 24px;
+}
+.parent-node ::ng-deep .mdc-label, .parent-node > i {
+  font-weight: 600;
+  color: #06559D;
+}
+
+.child-node ::ng-deep .mdc-label, .child-node > i {
+  font-weight: 600;
+  color: #138AF6;
+}
+
+input[type="number"] {
+  width: 124px;
+  height: 12px;
+  padding: 5px;
+  text-align: right;
+}
+
+button {
+  height: 32px;
+  border: 0;
+  border-radius: 5px;
+  background-color: #06559D;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+// input[type="number"] spin 버튼
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+::ng-deep .custom-checkbox-container .mdc-label {
+  padding-left: 12px !important;
+}
+
+::ng-deep .category .mdc-checkbox {
+  padding: 0;
+}
+
+::ng-deep .category .mdc-checkbox .mdc-checkbox__background {
+  top: 0;
+  left: 0;
+}
+
+::ng-deep .mat-mdc-checkbox-touch-target {
+  width: 0 !important;
+}
+
+::ng-deep .mdc-checkbox .mdc-checkbox__native-control {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+// 체크박스 체크모양 색상
+::ng-deep .mdc-checkbox__checkmark-path {
+  transition: none !important;
+  color: #FFFFFF !important;
+}
+
+// 체크박스 내부
+::ng-deep .mdc-checkbox__native-control:checked~.mdc-checkbox__background .mdc-checkbox__checkmark {
+  padding: 3px !important;
+}
+
+// 체크박스 체크 전
+::ng-deep .mdc-checkbox__background {
+  border: 1px solid #E2E2E2 !important;
+  border-radius: 0 !important;
+}
+
+// 부모 카테고리 체크박스 체크 후
+::ng-deep .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
+  border: none !important;
+  background-color: #06559D !important;
+}
+
+// 자식 카테고리 체크박스 체크 후
+.node-children ::ng-deep .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
+  border: none !important;
+  background-color: #138AF6 !important;
+}
+
+::ng-deep .mdc-checkbox .mdc-checkbox__native-control:focus:checked~.mdc-checkbox__ripple {
+  background-color: none !important;
+}
+
+::ng-deep .mdc-checkbox__ripple {
+  display:  none !important;
+}
+
+::ng-deep .mat-ripple-element{
+  display: none !important;
+}

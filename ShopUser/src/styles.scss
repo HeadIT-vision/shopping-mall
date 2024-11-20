@@ -1,0 +1,181 @@
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Pretendard-Regular';
+}
+
+.width-100 {
+  width: 100%;
+}
+
+// Font
+.title-md {
+  font-size: 28px;
+}
+
+.text-md {
+  font-size: 16px;
+}
+
+.text-sm {
+  font-size: 14px;
+}
+
+.caption {
+  font-size: 12px;
+}
+
+.font-14 {
+  font-size: 14px;
+}
+
+.font-16 {
+  font-size: 16px;
+}
+
+.font-18 {
+  font-size: 18px;
+}
+
+.font-20 {
+  font-size: 20px;
+}
+
+.font-24 {
+  font-size: 24px;
+}
+
+.font-28 {
+  font-size: 28px;
+}
+
+.font-32 {
+  font-size: 32px;
+}
+
+.font-48 {
+  font-size: 48px;
+}
+
+// Font | Weight 
+.regular {
+  font-weight: 400;
+}
+
+.medium {
+  font-weight: 500;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.semi-bold {
+  font-weight: 600;
+}
+
+// Font Color | Main 
+.mc-orange {
+  color: #FF5B45;
+}
+
+.mc-300 {
+  color: #F4822A;
+}
+
+// Font Color | Base
+.bc-500 {
+  color: #A0A0A0;
+}
+
+.bc-600 {
+  color: #777777;
+}
+
+.bc-800 {
+  color: #444444;
+}
+
+.bc-900 {
+  color: #212121;
+}
+
+.mc-500 {
+  color: #06559D;
+}
+
+// Padding
+.pl-3 {
+  padding-left: 3px;
+}
+
+.pl-16 {
+  padding-left: 16px;
+}
+
+.pl-24 {
+  padding-left: 24px;
+}
+
+.pl-40 {
+  padding-left: 40px;
+}
+
+.pt-8 {
+  padding-top: 8px;
+}
+
+.pt-48 {
+  padding-top: 48px;
+}
+
+.pr-14 {
+  padding-right: 14px;
+}
+
+.pb-12 {
+  padding-bottom: 12px;
+}
+
+// Margin
+.mt-40 {
+  margin-top: 40px;
+}
+
+.mb-40 {
+  margin-bottom: 40px;
+}
+
+// dicsounted price
+.discount-price {
+  font-weight: normal;
+  font-size: 16px;
+  text-decoration: line-through;
+  color: #777777;
+}
+
+.color-blue {
+  color: #06559D;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

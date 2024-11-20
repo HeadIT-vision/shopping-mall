@@ -1,0 +1,150 @@
+<div fxLayout="column" fxLayoutGap="40">
+  <mat-card class="basket__title bold font-48" fxLayoutAlign="center center">
+    <mat-card-content>장바구니</mat-card-content>
+  </mat-card>
+  <div class="basket__content--table">
+    <mat-card-content>
+      <table mat-table [dataSource]="baskets">
+        <!-- 전체 선택 및 이미지 -->
+        <ng-container matColumnDef="productImage">
+          <th class="basket__content--checkbox font-16 bc-900" mat-header-cell *matHeaderCellDef>
+            <mat-checkbox
+              color="primary"
+              [checked]="areAllSelected()"
+              (change)="toggleAll()">
+            </mat-checkbox>
+            전체 선택
+          </th>
+          <td mat-cell *matCellDef="let element" fxLayoutAlign="start center">
+            <mat-checkbox
+              color="primary"
+              [checked]="selectedRows.has(element.id)"
+              (change)="toggleCheckbox(element.id)">
+            </mat-checkbox>
+            <img class="basket__table--image" [src]="element.image.thumbnailImageBase64" alt="Product Image"/>
+          </td>
+        </ng-container>
+
+        <!-- 상품명 및 설명 -->
+        <ng-container matColumnDef="productName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 상품명 </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="product-info" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="4">
+              <div class="table__product--title semi-bold font-16">[{{element.vendorName}}]</div>
+              <div class="table__product--description regular font-14 bc-800">{{element.productName}}</div>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- 제품 가격 및 할인 전 금액 -->
+        <ng-container matColumnDef="productPrice">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 제품가격 </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="basket__content--productPrice semi-bold font-24 bc-900" fxLayout="row">
+              {{ element.currentPrice.supplyPrice | number }}
+              <div class="font-14 regular pl-3">원</div>
+            </div>
+            <ng-container *ngIf="element.currentPrice.supplyPrice !== element.currentPrice.sellingPrice">
+              <div class="basket__content--originalPrice font-14 regular bc-600" fxLayout="row">
+                {{ element.currentPrice.sellingPrice | number }}원
+              </div>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <!-- 제품 수량 -->
+        <ng-container matColumnDef="productQuantity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 제품수량 </th>
+          <td mat-cell *matCellDef="let element" class="basket__table--quantity">
+            <div class="basket__content--quantity-control" fxLayout="row">
+              <button mat-icon-button (click)="decreaseQuantity(element)">
+                <mat-icon class="bc-800 font-16" fxLayoutAlign="center center">remove</mat-icon>
+              </button>
+              <span class="semi-bold font-14 bc-900" fxLayoutAlign="center center">{{element.quantity}}</span>
+              <button mat-icon-button (click)="increaseQuantity(element)">
+                <mat-icon class="bc-800 font-16" fxLayoutAlign="center center">add</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- 총 주문 금액 -->
+        <ng-container matColumnDef="productOrderTotal">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 주문금액 </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="semi-bold font-24 bc-900" fxLayout="row">
+              {{ calculateOrderTotal(element.quantity, element.currentPrice.supplyPrice) | number }}
+              <div class="font-14 regular pl-3">원</div>
+            </div>
+          </td>
+        </ng-container>
+        
+        <!-- 삭제 버튼 -->
+        <ng-container matColumnDef="productDelete">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="basket__content--table--button"> 
+            <button class="basket__content--table--all semi-bold font-14 bc-800" (click)="openDeleteBasketProducts()">
+              선택 삭제하기
+            </button>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <button class="basket__content--table--single semi-bold font-14 bc-800" (click)="openDeleteBasketProduct(element.id)">
+              삭제하기
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="6">장바구니에 담긴 제품이 없습니다.</td>
+        </tr>
+      </table>
+    </mat-card-content>
+    <div class="loading-bar" *ngIf="loading" fxLayoutAlign="center start">
+      <mat-spinner color="primary" diameter="80"></mat-spinner>
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="center end">
+    <mat-card class="basket__content--request" fxLayoutAlign="center">
+      <mat-card-content>
+        <div class="mt-40" fxLayout="column" fxLayoutGap="10">
+          <div>
+            <div class="font-16 bc-800" fxLayout="row" fxLayoutAlign="space-between center">
+              <label>할인 전 주문 금액</label>
+              <div fxLayout="row">
+                <p>{{ totalPrice | number }}</p>
+                <div class="font-14 regular pl-3">원</div>
+              </div>
+            </div>
+            <div class="font-16 bc-800" fxLayout="row" fxLayoutAlign="space-between center">
+              <label>할인 금액</label>
+              <div fxLayout="row">
+                <p>- {{ discountAmount | number }}</p>
+                <div class="font-14 regular pl-3">원</div>
+              </div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="basket__content--total">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+              <label class="font-16 mc-orange">총 주문 금액</label>
+              <div fxLayout="row">
+                <p class="font-24 mc-orange semi-bold">
+                  {{ totalOrderPrice | number }}
+                </p>
+                <div class="font-14 regular pl-3">원</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="6">
+          <button class="semi-bold font-20" (click)="goToConsultingPage()" >
+            상담 요청하기
+          </button>
+          <button class="semi-bold font-20" (click)="openInputCompanyDialog()">
+            견적서 다운로드
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

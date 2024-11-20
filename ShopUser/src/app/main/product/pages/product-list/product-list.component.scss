@@ -1,0 +1,175 @@
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+.btn-more {
+  width: 430px;
+  height: 56px;
+  border: 1px solid #E2E2E2;
+  border-radius: 28px;
+  background: #06559D;
+  color: #FFFFFF;
+
+}
+
+.btn-basket {
+  width: 208px;
+  height: 40px;
+  border: 1px solid #E0690C;
+  border-radius: 5px;
+  background-color: #FFFFFF;
+  color: #E0690C;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.product__list {
+  padding: 100px 0;
+  letter-spacing: -0.025rem;
+}
+
+.product__container {
+  border-bottom: 2px solid #A0A0A0;
+}
+
+// 제품 개수
+.product__count {
+  padding-bottom: 8px;
+}
+
+// 제품 박스
+.product__box {
+  width: 1180px;
+  min-height: 196px;
+  border: 1px solid #E2E2E2;
+  border-radius: 6px;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.08);
+  background-color: #FFFFFF;
+}
+
+.t {
+  margin-bottom: 229px;
+}
+
+// 제품 이미지 박스
+.product__image {
+  width: 155px;
+  height: 148px;
+
+  // 제품 이미지
+  & img {
+    width: 137px;
+    height: 137px;
+  }
+}
+
+// 제품 할인율
+.product__discount-rate {
+  color: #F4822A;
+}
+
+// 제품 할인 가격
+.product__discount-price {
+  display: block;
+  padding: 8px 0;
+  color: #777777;
+  text-decoration: line-through;
+}
+
+.product__inner {
+  border-right: 1px solid #E2E2E2;
+  padding: 24px;
+}
+
+.product__info {
+  min-width: 695px;
+}
+
+.product__price-box {
+  padding: 24px;
+}
+
+.product__price {
+  color: #212121;
+}
+
+.mat-mdc-card {
+  min-height: 36px;
+  margin-top: 60px;
+  border: 1px solid #E2E2E2;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.search__option--header {
+  width: 160px;
+  height: 18px;
+}
+
+.search__option--cell {
+  width: 80px;
+  height: 18px;
+}
+
+.search__option {
+  border-bottom: 1px solid #E2E2E2;
+  padding: 10px 12px 8px 20px;
+}
+
+.search__option:last-child {
+  border-bottom: none;
+}
+
+.search__option--container {
+  margin-right: 6px;
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+// 검색옵션 - 체크박스
+::ng-deep .search__option--checkbox .mdc-checkbox {
+  height: 16px;
+  padding: 0;
+}
+
+::ng-deep .search__option--checkbox .mdc-checkbox .mdc-checkbox__background {
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+}
+
+::ng-deep .search__option--checkbox .mdc-checkbox .mdc-checkbox__native-control {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+::ng-deep .search__option--checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
+  background-color: #138AF6 !important;
+}
+
+::ng-deep .mat-typography p {
+  margin: 0 !important;
+}
+
+.product__price--title {
+  height: 40px;
+  width: 208px;
+  border-radius: 20px;
+  background-color: #4D2404;
+  color: #F4822A;
+}
+
+.product__price--determined span{
+  color: #F4822A;
+  text-align: center;
+}

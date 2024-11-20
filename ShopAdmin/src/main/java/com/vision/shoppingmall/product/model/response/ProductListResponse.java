@@ -15,6 +15,7 @@ public class ProductListResponse {
 
     private final String publisherName;
     private final String authorName;
+    private final String translatorName;
 
     private final Double purchasePrice;
     private final Double unitPrice;

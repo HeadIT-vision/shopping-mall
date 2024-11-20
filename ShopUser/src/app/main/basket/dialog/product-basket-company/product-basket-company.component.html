@@ -1,0 +1,21 @@
+<mat-card>
+  <mat-card-header fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-card-title>
+      <label class="font-16 f-bold">회사명 입력</label>
+    </mat-card-title>
+    <span><img src="../../../../assets/images/close.png" mat-dialog-close></span>
+  </mat-card-header>
+
+  <mat-card-content fxLayout="row" fxLayoutAlign="center center">
+    <div class="content" fxLayout="row" fxLayoutGap="65">
+      <label>회사명<sup>*</sup></label>
+      <input type="text" class="input__company" placeholder="회사명을 입력해주세요." [(ngModel)]="businessName" />
+    </div>
+  </mat-card-content>
+
+
+  <mat-card-actions fxLayout="row" fxLayoutAlign="center end" fxLayoutGap="8">
+    <button type="button" class="btn-main btn-cancel font-16 bold" mat-dialog-close>취소하기</button>
+    <button type="button" class="btn-main btn-register font-16 bold" (click)="postQuotationRequest()">등록하기</button>
+  </mat-card-actions>
+</mat-card>

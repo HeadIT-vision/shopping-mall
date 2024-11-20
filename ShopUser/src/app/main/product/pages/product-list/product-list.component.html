@@ -1,0 +1,101 @@
+<div class="product__container">
+  <div fxLayout="column" fxLayoutAlign=" center">
+    <label class="title-md semi-bold">{{ selectedCategoryIds.length || searchProductName ? '필터 제품 목록' : '전체 제품 목록' }}</label>
+  </div>
+  <div class="product__count">
+    <span class="text-sm semi-bold mc-orange" fxLayoutAlign="end">
+      {{ (selectedCategoryIds.length > 0 || searchProductName.length > 0) ? filteredProductList?.length : productList?.length }}&nbsp;
+      <span class="regular bc-600">개의 제품이 있습니다.</span>
+    </span>
+  </div>
+</div>
+
+<!-- 검색옵션 -->
+<mat-card *ngIf="shouldDisplayCard()" fxLayout="column">
+  <div *ngFor="let searchOptionGroup of filteredSearchOptions()" class="search__option" fxLayout="row" fxLayoutGap="10">
+    <div class="search__option--header">{{ searchOptionGroup.searchOptionGroupName }}</div>
+
+    <div *ngFor="let searchOption of searchOptionGroup.searchOptions" fxLayout="row">
+      <div class="search__option--container" *ngIf="searchOption.isEnable" fxLayoutAlign="center center" fxLayout="row">
+        <mat-checkbox class="search__option--checkbox" [value]="searchOption.searchOptionId" (change)="onSearchOptionChange($event, searchOption.searchOptionId, searchOptionGroup.searchOptionGroupId)"
+          [checked]="(selectedSearchOptions[searchOptionGroup.searchOptionGroupId] || []).includes(searchOption.searchOptionId)">
+          <span class="search__option--cell">
+            {{ searchOption.searchOptionName }}
+          </span>
+        </mat-checkbox>
+      </div>
+    </div>
+  </div>
+</mat-card>
+
+
+<div class="product__list">
+  <div *ngIf="filteredProductList?.length > 0" fxLayout="column" fxLayoutGap="12">
+    <ng-container *ngFor="let row of productListChunks; trackBy: trackByProductId">
+      <ul fxLayout="row" fxLayoutGap="20">
+        <!-- 제품 아이템 -->
+        <li *ngFor="let item of row">
+          <div class="product__box" fxLayout="row">
+            <div class="product__inner" fxLayout="row" fxLayoutGap="24">
+              <!-- 제품 이미지 박스-->
+              <div class="product__image" fxLayoutAlign="start center">
+                <!-- 제품 이미지 -->
+                <img [src]="item.image.thumbnailImageBase64" [alt]="item.productName" />
+              </div>
+              <!-- 제품 정보 -->
+              <div class="product__info" fxLayout="column" fxLayoutGap="16">
+                <!-- 제품 타이틀 -->
+                <div>
+                  <p class="product__title bold text-md">[{{ item.vendorName }}] {{ item.productName }}</p>
+                </div>
+                <!-- 제품 설명 -->
+                <div>
+                  <p class="product__sub-description text-sm bc-600" [innerHTML]="item.subDescription"></p>
+                </div>
+              </div>
+            </div>
+            <!-- 제품 가격 및 장바구니 -->
+            <div class="product__price-box" fxLayout="column" fxLayoutGap="16">
+              <div *ngIf=" item.currentPrice">
+                <span class="product__discount-price" *ngIf="item.currentPrice.supplyPrice !== item.currentPrice.sellingPrice">
+                  {{ item.currentPrice.sellingPrice | number }}원
+                </span>
+                <div class="product__sale font-24">
+                  <span class="product__discount-rate semi-bold" *ngIf="item.currentPrice.supplyPrice !== item.currentPrice.sellingPrice">
+                    {{ getDiscountPercentage(item.currentPrice.sellingPrice, item.currentPrice.discountRate) }}%
+                  </span>
+                  <span class="product__price semi-bold font-24">
+                    {{ item.currentPrice.supplyPrice | number }} <span class="text-sm regular">원</span>
+                  </span>
+                </div>
+              </div>
+              <div class="product__price--determined" *ngIf="!item.currentPrice || !item.currentPrice.purchasePrice" fxLayout="column" fxLayoutAlign="center center">
+                <div class="product__price--title font-16 semi-bold" fxLayoutAlign="center center">
+                  가격변동예정
+                </div>
+                <span class="font-14 regular">자세한 사항은 <span class="font-14 semi-bold">063-243-8972</span>로<br>문의주시기 바랍니다. 불편을 드려<br>죄송합니다. 감사합니다.</span>
+              </div>
+              <button *ngIf="item.currentPrice" type="button" class="btn-basket" (click)="openBasketDialog(item)">장바구니</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </ng-container>
+  </div>
+  <div *ngIf="filteredProductList?.length === 0">
+    <p fxLayoutAlign="center" class="no-products-message">현재 선택된 제품이 없습니다.</p>
+  </div>
+  <div class="loading-bar" *ngIf="loading" fxLayoutAlign="center center">
+    <mat-spinner *ngIf="loading" color="primary" diameter="80"></mat-spinner>
+  </div>
+</div>
+
+<!--
+  true : 버튼 나오고
+  false : 버튼 없어짐
+-->
+<div class="t" fxLayoutAlign="center" *ngIf="!showProducts && this.filteredProductList?.length >= 11">
+  <button type="button" class="btn-more font-20 semi-bold bc-800" (click)="showMoreProducts()">더보기
+    <i class="fa-solid fa-angle-down font-14"></i>
+  </button>
+</div>
