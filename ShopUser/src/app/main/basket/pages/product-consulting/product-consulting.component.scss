@@ -1,0 +1,257 @@
+// 상담 요청서 타이틀
+.consulting__title {
+  margin-top: 10px;
+  width: 1440px;
+  height: 180px;
+  background-color: #F6F7FB;
+  box-shadow: none;
+  border-radius: 0.2em;
+}
+
+.mat-mdc-card-content {
+  padding: 0px;
+}
+
+// ---------------------------------------------
+// 요청자 정보
+.consulting__table span {
+  color: #212121;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.consulting__table p {
+  color: #138AF6;
+  margin-bottom: 12px;
+  padding-left: 2px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.consulting__table--content {
+  margin-top: 24px;
+}
+
+.consulting__table--title--top {
+  border-top: 1px solid #A0A0A0;
+  border-bottom: 1px solid #E2E2E2;;
+  height: 80px;
+  width: 250px;
+}
+
+.consulting__table--title {
+  border-bottom: 1px solid #E2E2E2;;
+  height: 80px;
+  width: 250px;
+}
+
+.consulting__table--title--l {
+  border-bottom: 1px solid #E2E2E2;;
+  height: 360px;
+  width: 250px;
+}
+
+.consulting__table--input--l {
+  border-bottom: 1px solid #E2E2E2;;
+  height: 360px;
+  width: 1188px;
+}
+
+:host ::ng-deep .ck-editor__editable_inline {
+  height: 278px;
+  width: 1052px;
+  border-radius: 0.5em; 
+  padding-left: 22px !important;
+}
+
+:host ::ng-deep .ck-editor {
+  border: 1px solid #BFBFBF !important;
+  border: none !important;
+}
+
+.consulting__table--input--top {
+  border-top: 1px solid #A0A0A0;
+  border-bottom: 1px solid #E2E2E2;
+  height: 80px;
+  width: 1188px;
+}
+
+.consulting__table--input {
+  border-bottom: 1px solid #E2E2E2;
+  height: 80px;
+  width: 1188px;
+}
+
+.consulting__table--input :disabled {
+  background-color: #EFEFEF;
+}
+
+.consulting__table--input--s input{
+  height: 50px;
+  width: 332px !important;
+}
+
+.consulting__table input {
+  border: 1px solid #A0A0A0;
+  border-radius: 0.2em;
+  height: 50px;
+  width: 1052px;
+  border-color: #BFBFBF;
+}
+
+// 개인/법인
+.mat-button-toggle-checked {
+  background-color: #06559D !important;
+  color: #FFFFFF !important;
+}
+
+.mat-button-toggle {
+  height: 50px;
+  width: 525px;
+  color: #A0A0A0;
+}
+
+.mat-button-toggle-group-appearance-standard:not([class*=mat-elevation-z]) {
+  box-shadow: none;
+  border: 1px solid #BFBFBF !important;
+}
+
+// -------------------------------------
+// 제품 주문 정보
+
+.mdc-data-table__header-cell {
+  padding: 0;
+}
+
+.basket__table {
+  margin-top: 26px;
+}
+
+.basket__table th {
+  background-color: #F6F7FB;
+  height: 50px;
+  border-top: 2px solid #A0A0A0;
+}
+
+.basket__table td {
+  border-bottom: 1px solid #E2E2E2;
+  color: #A0A0A0;
+  height: 79px;
+}
+
+.basket__table th:nth-child(1) {
+  padding-left: 10px;
+}
+
+.basket__table td:nth-child(1) {
+  padding-left: 30px;
+}
+
+.basket__table th:nth-child(1),
+.basket__table td:nth-child(1) {
+  width: 90px;
+  text-align: center;
+}
+
+.basket__table th:nth-child(2),
+.basket__table td:nth-child(2) {
+  width: 570px;
+}
+
+.basket__table th:nth-child(3),
+.basket__table td:nth-child(3) {
+  width: 210px;
+  text-align: center;
+}
+
+.basket__table th:nth-child(4) {
+  padding-left: 15px;
+}
+
+.basket__table th:nth-child(4),
+.basket__table td:nth-child(4) {
+  width: 210px;
+}
+
+.basket__table th:nth-child(5) {
+  padding-left: 15px;
+}
+
+// 헤더
+.table__header {
+  margin-top: 26px;
+  background-color: #F6F7FB;
+  height: 50px;
+  padding: 0px !important;
+  border-top: 1px solid #A0A0A0;
+}
+
+// 이미지
+.basket__table--image{
+  height: 60px;
+}
+
+.table__image {
+  height: 80px;
+}
+
+// 상품명
+.table__product--title {
+  color: #06559D;
+}
+
+// 제품 가격
+.basket__content--originalPrice {
+  text-decoration: line-through;
+}
+
+.input {
+  color: red;
+}
+
+// -------------------------------------
+// 상담 등록 버튼
+.basket__content--request {
+  width: 500px;
+  height: 300px;
+  margin-bottom: 180px;
+  box-shadow: none;
+  border: 1px solid #E2E2E2;
+  border-radius: 0.4em;
+}
+
+.mat-mdc-card-content:first-child {
+  padding-top: 0px;
+}
+
+.basket__content--total {
+  margin-bottom: 15px;
+  margin-top: 12px;
+}
+
+.basket__content--request button {
+  margin-top: 24px;
+  width: 430px;
+  height: 56px;
+  color: #ffffff;
+  background-color: #06559D;
+  border: 1px solid #06559D;
+  border-radius: 0.3em;
+  cursor: pointer;
+}
+
+
+
+.divider {
+  border-top: 1px solid #ccc;
+}
+
+.basket__content--request p {
+  color: #444444;
+}
+
+.basket__content--total p {
+  font-size: 24px;
+  font-weight: 600;
+  color: #FF5B45;
+}

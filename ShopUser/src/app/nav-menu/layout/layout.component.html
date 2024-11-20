@@ -1,0 +1,23 @@
+<div class="default-layout" fxLayout="column">
+  <div fxLayout="row">
+    <app-header class="width-100"></app-header>
+  </div>
+
+  <div [ngClass]="backgroundClass" class="container pt-48" fxLayout="row" fxLayoutGap="40" fxLayoutAlign="center">
+    <div fxLayout="column" *ngIf="showSideMenu">
+      <app-side-menu></app-side-menu>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="start center">
+      <div class="main-contents">
+        <div class="contents-body">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer" fxLayout="column">
+    <app-footer></app-footer>
+  </div>
+</div>

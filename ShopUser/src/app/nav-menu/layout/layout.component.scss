@@ -1,0 +1,28 @@
+.default-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  height: 100%;
+}
+
+.contents-body {
+  min-width: 1180px;
+}
+
+.history-widget {
+  position: sticky;
+  top: 10px;
+}
+
+.container {
+  flex: 1;
+  background-color: #F7F8FB;
+}
+
+.default-background {
+  background-color: #F7F8FB;
+}
+
+.basket-background {
+  background-color: #FFFFFF;
+}

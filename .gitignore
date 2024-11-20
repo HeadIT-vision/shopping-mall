@@ -1,5 +1,7 @@
 db/data/
 
+**/node_modules
+
 HELP.md
 .gradle
 build/

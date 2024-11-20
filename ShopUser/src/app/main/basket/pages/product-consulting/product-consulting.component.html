@@ -1,0 +1,199 @@
+<div fxLayout="column" fxLayoutGap="48">
+  <mat-card class="consulting__title bold font-48" fxLayoutAlign="center center">
+    <mat-card-content>상담 요청서 작성</mat-card-content>
+  </mat-card>
+  <div class="consulting__table">
+    <mat-card-content>
+      <div fxLayout="column" fxLayoutGap="100">
+        <div>
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <label class="font-28 semi-bold">
+              요청자 정보
+            </label>
+          </div>
+
+
+
+          <div class="consulting__table--content">
+            <div fxLayout="row" fxLayoutAlign="end">
+              <p>
+                * 필수 입력 사항입니다.
+              </p>
+            </div>
+            <div fxLayout="row">
+              <div class="consulting__table--title--top font-16 bc-900 medium" fxLayoutAlign="start center">이름<p>*</p>
+              </div>
+              <div class="consulting__table--input--top" fxLayoutAlign="start center">
+                <input class="font-16 regular pl-24" [(ngModel)]="productConsulting.name" [ngModelOptions]="{standalone: true}" placeholder="이름을 입력해주세요." />
+              </div>
+            </div>
+            <div fxLayout="row">
+              <div class="consulting__table--title font-16 bc-900 medium" fxLayoutAlign="start center">전화번호<p>*</p>
+              </div>
+              <div class="consulting__table--input" fxLayoutAlign="start center">
+                <div class="consulting__table--input--s" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                  <input type="text" class="font-16 regular pl-24" [maxlength]="3" pattern="\d*" [(ngModel)]="productConsulting.tel1" [ngModelOptions]="{standalone: true}" />
+                  <span>-</span>
+                  <input class="font-16 regular pl-24" [maxlength]="4" pattern="\d*" [(ngModel)]="productConsulting.tel2" [ngModelOptions]="{standalone: true}" />
+                  <span>-</span>
+                  <input class="font-16 regular pl-24" [maxlength]="4" pattern="\d*" [(ngModel)]="productConsulting.tel3" [ngModelOptions]="{standalone: true}" />
+                </div>
+              </div>
+            </div>
+            <div fxLayout="row">
+              <div class="consulting__table--title font-16 bc-900 medium" fxLayoutAlign="start center">이메일<p>*</p>
+              </div>
+              <div class="consulting__table--input" fxLayoutAlign="start center">
+                <input class="font-16 regular pl-24" [(ngModel)]="productConsulting.email" [ngModelOptions]="{standalone: true}" placeholder="이메일을 입력해주세요."
+                  pattern="^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}" />
+              </div>
+            </div>
+            <div fxLayout="row">
+              <div class="consulting__table--title font-16 bc-900 medium" fxLayoutAlign="start center">개인/법인<p>*</p>
+              </div>
+              <div class="consulting__table--input" fxLayoutAlign="start center">
+                <mat-button-toggle-group [hideSingleSelectionIndicator]="true" name="type" [(ngModel)]="productConsulting.businessType" [ngModelOptions]="{standalone: true}" aria-label="Type">
+                  <mat-button-toggle [value]="true">법인</mat-button-toggle>
+                  <mat-button-toggle [value]="false">개인</mat-button-toggle>
+                </mat-button-toggle-group>
+              </div>
+            </div>
+            <div fxLayout="row">
+              <div class="consulting__table--title font-16 bc-900 medium" fxLayoutAlign="start center">회사명</div>
+              <div class="consulting__table--input" fxLayoutAlign="start center">
+                <input class="font-16 regular pl-24" [(ngModel)]="productConsulting.businessName" [ngModelOptions]="{standalone: true}" placeholder="회사명을 입력해주세요." />
+              </div>
+            </div>
+            <div fxLayout="row">
+              <div class="consulting__table--title--l font-16 bc-900 medium" fxLayoutAlign="start center">상담내용</div>
+              <div class="consulting__table--input--l" fxLayoutAlign="start center">
+                <ckeditor class="consulting__table--ckeditor font-16 regular" [(ngModel)]="productConsulting.content" [ngModelOptions]="{standalone: true}" [editor]="Editor"
+                  [config]="{placeholder: '상담 내용을 작성해주세요.'}">
+                </ckeditor>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div fxLayout="column">
+            <div>
+              <label class="font-28 semi-bold">
+                제품 주문 정보
+              </label>
+            </div>
+
+            <div>
+              <div>
+                <table class="basket__table" mat-table [dataSource]="dataSource">
+                  <ng-container matColumnDef="productImage">
+                    <th mat-header-cell *matHeaderCellDef> 상품명 </th>
+                    <td mat-cell *matCellDef="let element" class="table__image">
+                      <div fxLayoutAlign="start center">
+                        <img class="basket__table--image" src="{{element.image.thumbnailImageBase64}}">
+                      </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="productName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <td mat-cell *matCellDef="let element" class="table__productName">
+                      <div fxLayout="column" fxLayoutAlign="center start">
+                        <div class="table__product--title semi-bold font-16">[{{element.vendorName}}]</div>
+                        <div class="table__product--description regular font-14 bc-800">{{element.productName}}</div>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="productQuantity">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> 제품수량 </th>
+                    <td mat-cell *matCellDef="let element">
+                      <div class="font-16 medium bc-800">
+                        <div>{{element.quantity}}개</div>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="productPrice">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> 제품가격 </th>
+                    <td mat-cell *matCellDef="let element" class="table__price">
+                      <div fxLayout="column" fxLayoutAlign="center start">
+                        <div class="basket__content--productPrice semi-bold font-24 bc-900" fxLayout="row">
+                          {{element.currentPrice.supplyPrice | number }}
+                          <div class="font-14 regular pl-3">원</div>
+                        </div>
+                        <ng-container *ngIf="element.currentPrice.supplyPrice !== element.currentPrice.sellingPrice">
+                          <div class="basket__content--originalPrice font-14 regular bc-600" fxLayout="row">
+                            {{ element.currentPrice.sellingPrice | number }}원
+                          </div>
+                        </ng-container>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="productOrderTotal">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> 주문금액 </th>
+                    <td mat-cell *matCellDef="let element">
+                      <div class="semi-bold font-24 bc-900" fxLayout="row">
+                        {{ calculateOrderTotal(element.quantity, element.currentPrice.supplyPrice) | number }}
+                        <div class="font-14 regular pl-3">원</div>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="5">제품 주문 정보가 없습니다.</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="center end">
+          <mat-card class="basket__content--request" fxLayoutAlign="center">
+            <mat-card-content>
+              <div class="mt-40" fxLayout="column" fxLayoutGap="10">
+
+                <div fxLayout="column" fxLayoutGap="10">
+                  <div class="font-16 bc-800" fxLayout="row" fxLayoutAlign="space-between center">
+                    <label>할인 전 주문 금액</label>
+                    <div fxLayout="row">
+                      <p>{{ calculateTotalPrice() | number }}</p>
+                      <div class="font-14 regular pl-3">원</div>
+                    </div>
+                  </div>
+
+                  <div class="font-16 bc-800" fxLayout="row" fxLayoutAlign="space-between center">
+                    <label>할인 금액</label>
+                    <div fxLayout="row">
+                      <p>- {{ calculateDiscountAmount() | number }}</p>
+                      <div class="font-14 regular pl-3">원</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="basket__content--total">
+                  <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <label class="font-16 mc-orange">총 주문 금액</label>
+                    <div fxLayout="row">
+                      <p>
+                        {{ calculateTotalPrice() - calculateDiscountAmount() | number }}
+                      </p>
+                      <div class="font-14 regular pl-3">원</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div fxLayout="column" fxLayoutAlign="center">
+                <button class="semi-bold font-20" (click)="onConsultingButtonClicked()">
+                  상담 등록하기
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-card-content>
+  </div>
+</div>

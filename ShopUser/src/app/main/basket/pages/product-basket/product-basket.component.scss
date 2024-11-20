@@ -1,0 +1,156 @@
+// 상담 장바구니 타이틀
+.basket__title {
+  margin-top: 10px;
+  width: 1440px;
+  height: 180px;
+  background-color: #F6F7FB;
+  box-shadow: none;
+  border-radius: 0.2em;
+}
+
+.mat-mdc-card-content {
+  padding: 0px;
+}
+
+// ---------------------------------------------
+
+.basket__content--table td{
+  height: 159px;
+  text-align: center;
+  color: #A0A0A0;
+  border-bottom: 1px solid #E2E2E2;
+}
+
+.basket__content--table th{
+  font-size: 16px;
+  border-bottom: 2px solid #A0A0A0;
+  color: #212121;
+}
+
+.basket__content--table th:nth-child(2),
+.basket__content--table td:nth-child(2) {
+  width: 480px;
+}
+
+.basket__content--table th:nth-child(5),
+.basket__content--table td:nth-child(5) {
+  width: 200px;
+}
+
+// 체크박스
+.basket__content--table--button {
+  width: 108px;
+}
+
+.basket__content--table--all {
+  width: 108px;
+  height: 32px;
+  border: 1px solid #BFBFBF;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.basket__content--table--single {
+  margin-left: 20px;
+  width: 86px;
+  height: 32px;
+  border: 1px solid #BFBFBF;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.basket__content--table mat-card-content{
+  padding-bottom: 40px;
+}
+
+// 이미지
+.basket__table--image{
+  margin-left: 42px;
+  width: 80px;
+  height: 80px;
+}
+
+// 상품명
+.table__product--title {
+  color: #06559D;
+}
+
+.table__product--description {
+  padding-bottom: 24px;
+}
+
+// 제품 가격
+.basket__content--productPrice {
+  padding-top: 20px;
+}
+
+.basket__content--originalPrice {
+  text-decoration: line-through;
+}
+
+.basket__table--quantity button {
+  border: none;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.basket__content--quantity-control {
+  border: 1px solid #BFBFBF;
+  height: 32px;
+  width: 108px;
+}
+
+.basket__content--quantity-control mat-icon{
+  width: 32px;
+}
+
+.basket__content--quantity-control span {
+  border-left: 1px solid #BFBFBF;
+  border-right: 1px solid #BFBFBF;
+  width: 48px;
+}
+
+.hide-won {
+  display: none;
+}
+
+// ---------------------------------------------
+
+// 상담 요청하기
+.basket__content--request {
+  width: 500px;
+  height: 350px;
+  margin-bottom: 180px;
+  box-shadow: none;
+  border: 1px solid #E2E2E2;
+  border-radius: 0.4em;
+}
+
+.mat-mdc-card-content:first-child {
+  padding-top: 0px;
+}
+
+.basket__content--total {
+  margin-bottom: 15px;
+  margin-top: 12px;
+}
+
+.basket__content--request button {
+  width: 430px;
+  height: 56px;
+  color: #ffffff;
+  background-color: #06559D;
+  border: 1px solid #06559D;
+  border-radius: 0.3em;
+  cursor: pointer;
+}
+
+.basket__content--request button:nth-child(2) {
+  border: 1px solid #E0690C;
+  background-color: #FFFFFF;
+  color: #E0690C;
+}
+
+.divider {
+  border-top: 1px solid #ccc;
+}
