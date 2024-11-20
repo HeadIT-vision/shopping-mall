@@ -54,6 +54,9 @@ input[type="number"] {
 .color-white {
     color: #fff;
 }
+.color-red {
+    color: #EB003B;
+}
 
 /* background-color */
 .bg-orange {
@@ -101,9 +104,11 @@ button {
 .border-right-gray {
     border-right: 1px solid #EAEAEA;
 }
-
 .border-bottom-dgray {
     border-bottom: 1px solid #A0A0A0;
+}
+.border-red {
+    border: 1px solid #EB003B;
 }
 
 /* table */
