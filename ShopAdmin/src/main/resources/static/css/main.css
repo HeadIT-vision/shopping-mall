@@ -17,7 +17,7 @@ a * {
 }
 select {
     padding: 6px 10px;
-    border: 1px solid #E7E7E7;
+    border: 1px solid #EAEAEA;
     border-radius: 6px;
     box-sizing: border-box;
 }
@@ -25,8 +25,14 @@ button {
     border-radius: 4px;
     padding: 6px 10px;
 }
+input {
+    padding: 6px 10px;
+    border: 1px solid #EAEAEA;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
 input:focus, select:focus {
-    border-color: #E7E7E7;  /* 포커스 시 보더 색을 초록색으로 변경 */
+    border-color: #EAEAEA;  /* 포커스 시 보더 색을 초록색으로 변경 */
     outline: none;  /* 포커스 시 아웃라인을 제거 */
 }
 input[type="number"]::-webkit-outer-spin-button,
@@ -47,6 +53,9 @@ input[type="number"] {
 }
 .color-white {
     color: #fff;
+}
+.color-red {
+    color: #EB003B;
 }
 
 /* background-color */
@@ -95,6 +104,12 @@ button {
 .border-right-gray {
     border-right: 1px solid #EAEAEA;
 }
+.border-bottom-dgray {
+    border-bottom: 1px solid #A0A0A0;
+}
+.border-red {
+    border: 1px solid #EB003B;
+}
 
 /* table */
 table {
@@ -124,6 +139,7 @@ td.table-cell {
     border-bottom: 1px solid #D9D9D9; /* 셀 아래쪽에 보더 추가 */
 }
 th.table-cell:first-child, td.table-cell:first-child {
+    padding-right: 20px;
     padding-left: 20px;
 }
 th.table-cell:last-child, td.table-cell:last-child {
