@@ -1,4 +1,4 @@
-import {SignUpModel} from "../sign-up.model";
+import {SignUpViewModel} from "../view/sign-up-view.model";
 
 export class SignUpRequest {
   constructor(
@@ -12,7 +12,7 @@ export class SignUpRequest {
     public readonly extraAddress: string
   ) { }
 
-  public static mapFrom(model: SignUpModel) {
+  public static mapFrom(model: SignUpViewModel) {
     return new SignUpRequest(
       model.email,
       model.password,

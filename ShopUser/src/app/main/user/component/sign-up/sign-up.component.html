@@ -1,4 +1,3 @@
-<!-- src/app/main/user/component/sign-up/sign-up.component.html -->
 <div class="container col-12 col-lg-4">
   <div class="card mt-5">
     <div class="card-header text-center bg-light">
@@ -6,58 +5,74 @@
     </div>
     <form #signUpForm="ngForm" (ngSubmit)="onSubmit()">
       <div class="card-body pt-4 pb-0">
-        <div class="form-group row">
+        <div class="mb-3 row">
           <label for="email" class="col-3 col-form-label">아이디</label>
           <div class="col-9">
-            <input type="text" class="form-control" id="email" name="email" [(ngModel)]="model.email" required email>
-<!--            <div *ngIf="signUpForm.submitted && !signUpForm.controls.email?.valid" class="offset-col-3 form-text text-danger">-->
-<!--              <div *ngIf="signUpForm.controls.email?.errors?.required">이메일을 입력해주세요.</div>-->
-<!--              <div *ngIf="signUpForm.controls.email?.errors?.email">이메일 형식이 올바르지 않습니다.</div>-->
-<!--            </div>-->
+            <input type="text" class="form-control" id="email" required
+                   [(ngModel)]="model.email" name="email" #email="ngModel"
+                   (ngModelChange)="onEmailChanged()"
+            />
+            <div *ngIf="email.invalid && submitted" class="offset-col-3 form-text text-danger">
+              <div *ngIf="email.errors?.['required']">이메일을 입력해주세요.</div>
+              <div *ngIf="email.errors?.['pattern']">이메일 형식이 올바르지 않습니다.</div>
+            </div>
           </div>
         </div>
 
         <div class="mb-3 row">
           <label for="password" class="col-3 col-form-label">비밀번호</label>
           <div class="col-9">
-            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="model.password" required minlength="6">
-<!--            <div *ngIf="signUpForm.submitted && !signUpForm.controls.password?.valid" class="offset-col-3 form-text text-danger">-->
-<!--              <div *ngIf="signUpForm.controls.password?.errors?.required">비밀번호를 입력해주세요.</div>-->
-<!--              <div *ngIf="signUpForm.controls.password?.errors?.minlength">비밀번호는 최소 6자 이상이어야 합니다.</div>-->
-<!--            </div>-->
+            <input type="password" class="form-control" id="password" required minlength="6"
+                   [(ngModel)]="model.password" name="password" #password="ngModel"
+                   (ngModelChange)="onPasswordChanged()"
+            />
+              <div *ngIf="password.invalid && submitted" class="offset-col-3 form-text text-danger">
+              <div *ngIf="password.errors?.['required']">비밀번호를 입력해주세요.</div>
+              <div *ngIf="password.errors?.['minlength']">비밀번호는 최소 6자 이상이어야 합니다.</div>
+            </div>
           </div>
         </div>
 
         <div class="mb-3 row">
           <label for="passwordConfirm" class="col-3 col-form-label">비밀번호 확인</label>
           <div class="col-9">
-            <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" [(ngModel)]="model.passwordConfirm" required>
-<!--            <div *ngIf="signUpForm.submitted && !signUpForm.controls.passwordConfirm?.valid" class="offset-col-3 form-text text-danger">-->
-<!--              <div *ngIf="signUpForm.controls.passwordConfirm?.errors?.required">비밀번호 확인을 입력해주세요.</div>-->
-<!--            </div>-->
+            <input type="password" class="form-control" id="passwordConfirm" required
+                   name="passwordConfirm" [(ngModel)]="model.passwordConfirm" #passwordConfirm="ngModel"
+                   (ngModelChange)="onPasswordConfirmChanged()"
+            />
+            <div *ngIf="passwordConfirm.invalid && submitted" class="offset-col-3 form-text text-danger">
+              <div *ngIf="passwordConfirm.errors?.['required']">비밀번호가 일치하지 않습니다.</div>
+              <div *ngIf="passwordConfirm.errors?.['mismatch']">비밀번호가 일치하지 않습니다.</div>
+            </div>
           </div>
         </div>
 
         <div class="mb-3 row">
           <label for="userName" class="col-3 col-form-label">이름</label>
           <div class="col-9">
-            <input type="text" class="form-control" id="userName" name="userName" [(ngModel)]="model.userName" required>
-<!--            <div *ngIf="signUpForm.submitted && !signUpForm.controls.userName?.valid" class="offset-col-3 form-text text-danger">-->
-<!--              <div *ngIf="signUpForm.controls.userName?.errors?.required">이름을 입력해주세요.</div>-->
-<!--            </div>-->
+            <input type="text" class="form-control" id="userName" required
+                   name="userName" [(ngModel)]="model.userName" #userName="ngModel"
+                   (ngModelChange)="onUserNameChanged()"
+            />
+            <div *ngIf="userName.invalid && submitted" class="offset-col-3 form-text text-danger">
+              <div *ngIf="userName.errors?.['required']">이름을 입력해주세요.</div>
+            </div>
           </div>
         </div>
 
         <div class="mb-3 row">
           <label for="mobile" class="col-3 col-form-label">연락처</label>
           <div class="col-9">
-            <input type="text" class="form-control" id="mobile" name="mobile" [(ngModel)]="model.mobile" required>
-<!--            <div *ngIf="signUpForm.submitted && !signUpForm.controls.mobile?.valid" class="offset-col-3 form-text text-danger">-->
-<!--              <div *ngIf="signUpForm.controls.mobile?.errors?.required">연락처를 입력해주세요.</div>-->
-<!--            </div>-->
-            <div id="mobileHelpBlock" class="offset-3 form-text">
-              <span>'-' 없이 숫자만 입력해주세요.</span>
+            <input type="text" class="form-control" id="mobile" required
+                   name="mobile" [(ngModel)]="model.mobile" #mobile="ngModel"
+                   (ngModelChange)="onMobileChanged()"
+            />
+            <div *ngIf="mobile.invalid && submitted" class="offset-col-3 form-text text-danger">
+              <div *ngIf="mobile.errors?.['required']">연락처를 입력해주세요.</div>
             </div>
+          </div>
+          <div id="mobileHelpBlock" class="offset-3 form-text">
+            <span>'-' 없이 숫자만 입력해주세요.</span>
           </div>
         </div>
       </div>
@@ -68,7 +83,13 @@
             <label for="postCode" class="col-form-label">우편번호</label>
           </div>
           <div class="col-auto col-5">
-            <input type="text" class="form-control" id="postCode" name="postCode" [(ngModel)]="model.postCode" readonly>
+            <input type="text" class="form-control" id="postCode" readonly required
+                   name="postCode" [(ngModel)]="model.postCode" #postCode="ngModel"
+                   (ngModelChange)="onPostCodeChanged()"
+            />
+            <div *ngIf="postCode.invalid && submitted" class="form-text text-danger">
+              <div *ngIf="postCode.errors?.['required']">우편번호를 입력해주세요.</div>
+            </div>
           </div>
           <div class="col-auto">
             <button class="btn btn-primary" type="button">검색</button>
@@ -78,14 +99,26 @@
         <div class="mb-3 row">
           <label for="address" class="col-3 col-form-label">주소</label>
           <div class="col-9">
-            <input type="text" class="form-control" id="address" name="address" [(ngModel)]="model.address" readonly>
+            <input type="text" class="form-control" id="address" readonly required
+                   name="address" [(ngModel)]="model.address" #address="ngModel"
+                   (ngModelChange)="onAddressChanged()"
+            />
+            <div *ngIf="address.invalid && submitted" class="offset-col-3 form-text text-danger">
+              <div *ngIf="address.errors?.['required']">주소를 입력해주세요.</div>
+            </div>
           </div>
         </div>
 
         <div class="mb-3 row">
           <label for="extraAddress" class="col-3 col-form-label">상세주소</label>
           <div class="col-9">
-            <input type="text" class="form-control" id="extraAddress" name="extraAddress" [(ngModel)]="model.extraAddress">
+            <input type="text" class="form-control" id="extraAddress" required
+                   name="extraAddress" [(ngModel)]="model.extraAddress" #extraAddress="ngModel"
+                   (ngModelChange)="onExtraAddressChanged()"
+            />
+            <div *ngIf="extraAddress.invalid && submitted" class="offset-col-3 form-text text-danger">
+              <div *ngIf="extraAddress.errors?.['required']">상세주소를 입력해주세요.</div>
+            </div>
           </div>
         </div>
       </div>

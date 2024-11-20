@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {signUpModelValidator} from "../../model/sign-up-model.validator";
-import {UserApi} from "../../api/user.api";
+import {Component, ViewChild} from '@angular/core';
+import {UserApi} from "../../service/api/user.api";
 import {SignUpRequest} from "../../model/request/sign-up.request";
-import {SignUpModel} from "../../model/sign-up.model";
+import {SignUpViewModel} from "../../model/view/sign-up-view.model";
+import {NgForm} from "@angular/forms";
+import {SignUpViewModelValidator} from "../../service/validator/sign-up-view.model.validator";
 
 @Component({
   selector: 'app-sign-up',
@@ -12,23 +12,16 @@ import {SignUpModel} from "../../model/sign-up.model";
 })
 export class SignUpComponent {
 
-  public model: SignUpModel = SignUpModel.create();
-  // public formGroup: FormGroup = this.formBuilder.group({
-  //   email: new FormControl('', [Validators.required, Validators.email]),
-  //   password: new FormControl('', [Validators.required]),
-  //   passwordConfirm: new FormControl('', [Validators.required]),
-  //   userName: new FormControl('', [Validators.required]),
-  //   mobile: new FormControl('', [Validators.required]),
-  //   postCode: new FormControl('', [Validators.required]),
-  //   address: new FormControl('', [Validators.required]),
-  //   extraAddress: new FormControl('', [Validators.required])
-  // });
+  @ViewChild('signUpForm') signUpForm!: NgForm;
+  submitted: boolean = false;
+  public model: SignUpViewModel = SignUpViewModel.create();
 
   constructor(
-
-    private api: UserApi) {}
+    private api: UserApi,
+    private validator: SignUpViewModelValidator) {}
 
   onSubmit() {
+    this.submitted = true;
     this.api.signUp(SignUpRequest.mapFrom(this.model))
       .then(() => {
         console.log(`회원가입 성공`);
@@ -36,9 +29,59 @@ export class SignUpComponent {
       .catch((e) => {
         console.log(`회원가입 실패: ${JSON.stringify(e)}`);
       });
-    // if (this.formGroup.valid) {
-    //   console.log('submit');
-    //
-    // }
+  }
+
+  onEmailChanged() {
+    const control = this.signUpForm.controls['email'];
+    if (control) {
+      control.setErrors(this.validator.validateEmail(control));
+    }
+  }
+
+  onPasswordChanged() {
+    const control = this.signUpForm.controls['password'];
+    if (control) {
+      control.setErrors(this.validator.validatePassword(control));
+    }
+  }
+  onPasswordConfirmChanged() {
+    const control = this.signUpForm.controls['password'];
+    const confirmControl = this.signUpForm.controls['passwordConfirm'];
+    if (control && confirmControl) {
+      confirmControl.setErrors(this.validator.validatePasswordConfirm(confirmControl, control.value));
+    }
+  }
+  onUserNameChanged() {
+    const control = this.signUpForm.controls['userName'];
+    if (control) {
+      control.setErrors(this.validator.validateUserName(control));
+    }
+  }
+  onMobileChanged() {
+    const control = this.signUpForm.controls['mobile'];
+    if (control) {
+      control.setErrors(this.validator.validateMobile(control));
+    }
+  }
+
+  onPostCodeChanged() {
+    const control = this.signUpForm.controls['postCode'];
+    if (control) {
+      control.setErrors(this.validator.validatePostCode(control));
+    }
+  }
+
+  onAddressChanged() {
+    const control = this.signUpForm.controls['address'];
+    if (control) {
+      control.setErrors(this.validator.validateAddress(control));
+    }
+  }
+
+  onExtraAddressChanged() {
+    const control = this.signUpForm.controls['extraAddress'];
+    if (control) {
+      control.setErrors(this.validator.validateExtraAddress(control));
+    }
   }
 }
