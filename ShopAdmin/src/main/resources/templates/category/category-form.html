@@ -4,7 +4,7 @@
 <body>
 <div layout:fragment="modalFragment" id="category-modal">
   <div class="p-6 border-bottom-dgray">
-    <div class="text-xl">카테고리 추가</div>
+    <div id="modal-title" class="text-xl" th:text="${modalTitle}"></div>
   </div>
 
   <form id="category-form" method="POST" action="/categories/new-category" class="flex flex-col">
@@ -12,7 +12,7 @@
       <label for="categoryName" class="w-1/4">카테고리 이름</label> <!-- 라벨의 너비를 적당히 설정 -->
       <div class="relative flex-1">
         <input type="text" th:value="${category?.categoryName ?: ''}" name="categoryName" id="categoryName" class="w-full" placeholder="카테고리 이름을 입력해주세요.">
-        <div id="category-name-error" class="absolute left-3 mt-1 hidden color-red">카테고리 이름이 중복되었습니다.</div>
+        <div id="category-name-error" class="absolute left-3 mt-1 hidden color-red"></div>
       </div>
     </div>
 

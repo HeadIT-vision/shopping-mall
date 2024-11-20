@@ -36,15 +36,21 @@ public class CategoryService {
     return new CreateCategoryResponse(newCategory);
   }
 
-  public boolean isCategoryNameExists(String categoryName) {
-    return categoryRepository.existsByCategoryName(categoryName);
-  }
-
   public Optional<CategoryListResponse> getCategoryById(Long categoryId) {
     Category category = categoryRepository.findById(categoryId)
-        .orElseThrow(() -> new CategoryNotFoundException());  // 카테고리가 없으면 예외 발생
+        .orElseThrow(CategoryNotFoundException::new);
     return Optional.of(new CategoryListResponse(
         category.getId(), category.getCategoryName()));
+  }
+
+  public void update(Long categoryId, String categoryName) {
+    Category category = categoryRepository.findById(categoryId)
+        .orElseThrow(CategoryNotFoundException::new);
+    if (categoryRepository.existsByCategoryNameAndIdNot(categoryName, categoryId))
+      throw new CategoryNameAlreadyExistsException();
+
+    category.update(categoryName);
+    categoryRepository.save(category);
   }
 
 }

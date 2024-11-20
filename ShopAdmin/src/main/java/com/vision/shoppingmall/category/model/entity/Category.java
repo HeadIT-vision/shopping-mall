@@ -31,4 +31,8 @@ public class Category {
         .categoryName(command.getCategoryName())
         .build();
   }
+
+  public void  update(String categoryName) {
+    this.categoryName = categoryName;
+  }
 }

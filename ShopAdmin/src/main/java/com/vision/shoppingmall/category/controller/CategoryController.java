@@ -2,6 +2,7 @@ package com.vision.shoppingmall.category.controller;
 
 import com.vision.shoppingmall.category.model.entity.Category;
 import com.vision.shoppingmall.category.model.exception.CategoryNameAlreadyExistsException;
+import com.vision.shoppingmall.category.model.exception.CategoryNotFoundException;
 import com.vision.shoppingmall.category.model.request.*;
 import com.vision.shoppingmall.category.model.response.*;
 import com.vision.shoppingmall.category.service.CategoryService;
@@ -35,13 +36,13 @@ public class CategoryController {
   //GET: /new-category, 카테고리 생성 페이지
   @GetMapping("/new-category")
   public String createCategoryForm(Model model) {
-    model.addAttribute("modalTitle", "카테고리 추가");
+    model.addAttribute("modalTitle", "카테고리 추가하기");
     return "category/category-form";
   }
 
   //POST: /new-category, 카테고리 생성 요청
   @PostMapping("/new-category")
-  public ResponseEntity<?> createCategory(@ModelAttribute CreateCategoryRequest request) {
+  public ResponseEntity createCategory(@ModelAttribute CreateCategoryRequest request) {
     try {
       categoryService.create(request);
       return ResponseEntity.status(HttpStatus.OK)
@@ -54,20 +55,29 @@ public class CategoryController {
   }
 
   @GetMapping("/update-category/{id}")
-  public String updateCategoryForm(@PathVariable("id") Long categoryId, Model model) {
+  public String updateCategory(@PathVariable("id") Long categoryId, Model model) {
     Optional<CategoryListResponse> category = categoryService.getCategoryById(categoryId);
     if (category.isEmpty())
       return "redirect:/categories";
-    model.addAttribute("modalTitle", "카테고리 수정");
+    model.addAttribute("modalTitle", "카테고리 수정하기");
     model.addAttribute("category", category.get());
     return "category/category-form";
   }
 
   @PostMapping("update-category/{id}")
-  public ResponseEntity<?> updateCategory(UpdateCategoryRequest request) {
-    return ResponseEntity.status(HttpStatus.OK)
-        .header(HttpHeaders.LOCATION, "/categories")
-        .build();
+  public ResponseEntity updateCategory(@PathVariable("id") Long categoryId, UpdateCategoryRequest request) {
+    try {
+      categoryService.update(categoryId, request.getCategoryName());
+      return ResponseEntity.status(HttpStatus.OK)
+          .header(HttpHeaders.LOCATION, "/categories")
+          .build();
+    } catch (CategoryNameAlreadyExistsException e) {
+      return ResponseEntity.status(HttpStatus.CONFLICT)
+          .body(Collections.singletonMap("message", e.getMessage()));
+    } catch (CategoryNotFoundException e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .body(Collections.singletonMap("message", e.getMessage()));
+    }
   }
 
 }

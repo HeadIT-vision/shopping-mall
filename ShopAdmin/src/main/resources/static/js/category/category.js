@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
   const openModalBtn = document.getElementById('create-category');
   const modalContent = document.getElementById('modal-area');
-
   openModalBtn.onclick = function() {
     fetch('/categories/new-category')
         .then(response => response.text())
