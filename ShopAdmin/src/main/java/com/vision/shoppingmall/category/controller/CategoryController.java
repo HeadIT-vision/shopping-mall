@@ -5,16 +5,13 @@ import com.vision.shoppingmall.category.model.response.*;
 import com.vision.shoppingmall.category.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
 
 @Controller
 @RequestMapping("/categories")
 @RequiredArgsConstructor
-//@CrossOrigin(origins = "*")
 public class CategoryController {
 
   private final CategoryService categoryService;
@@ -28,21 +25,23 @@ public class CategoryController {
   }
 
   //GET: /new-category, 카테고리 생성 페이지
-  @GetMapping("new-category")
+  @GetMapping("/new-category")
   public String createCategoryForm(Model model) {
-    return null;
+    return "category/category-form";
   }
 
-  //POST: /categories, 카테고리 생성 요청
-  @PostMapping("new-category")
-  public String createCategory(@RequestBody CreateCategoryRequest request) {
-    return null;
+  //POST: /new-category, 카테고리 생성 요청
+  @PostMapping("/new-category")
+  public String createCategory(@ModelAttribute CreateCategoryRequest request) {
+    categoryService.create(request);
+    return "redirect:/categories";
   }
 
-  @GetMapping("update-category")
+  @GetMapping("/update-category")
   public String updateCategoryForm() {
     return null;
   }
+
   @PostMapping("update-category")
   public String updateCategory(UpdateCategoryRequest request) {
     return null;

@@ -24,7 +24,6 @@ public class CategoryService {
   }
 
   public CreateCategoryResponse create(CreateCategoryRequest request) {
-
     Category newCategory = Category.create(request);
     categoryRepository.save(newCategory);
     return new CreateCategoryResponse(newCategory);

@@ -1,14 +1,18 @@
 package com.vision.shoppingmall.category.model.entity;
 
 import com.vision.shoppingmall.category.model.request.CreateCategoryRequest;
+import com.vision.shoppingmall.product.model.entity.Product;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigInteger;
+import java.util.List;
 
 @Entity(name = "categories")
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 public class Category {
 
   @Id
@@ -19,9 +23,12 @@ public class Category {
   @Column(name = "category_name", nullable = false, unique = true)
   private String categoryName;
 
+  @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+  private List<Product> products;
+
   public static Category create(CreateCategoryRequest command) {
-    Category category = new Category();
-    category.categoryName = command.getCategoryName();
-    return category;
+    return Category.builder()
+        .categoryName(command.getCategoryName())
+        .build();
   }
 }
