@@ -28,6 +28,16 @@ services:
         - SPRING_DATASOURCE_PASSWORD=P@ssw0rd
         - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
         - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    shop-user:
+      build:
+          context: .
+          dockerfile: ./ShopUser/Dockerfile
+      networks:
+        - shop-network
+      expose:
+        - "8081"
+      ports:
+        - "8081:80"
 networks:
     shop-network:
         driver: bridge
