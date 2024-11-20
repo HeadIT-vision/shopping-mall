@@ -18,6 +18,8 @@ public class UserService {
 
   public SignUpResponse signUp(SignUpRequest command) {
 
+    //TODO: passwordEncoder.encode(command.getPassword())
+    //TODO: SignUp Validation, Factory 분리
     User newUser = User.signUp(command, command.getPassword());
 
     policy.checkDuplicateEmail(newUser.getEmail());
