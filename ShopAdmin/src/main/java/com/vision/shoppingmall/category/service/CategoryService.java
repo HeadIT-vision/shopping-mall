@@ -1,6 +1,7 @@
 package com.vision.shoppingmall.category.service;
 
 import com.vision.shoppingmall.category.model.entity.Category;
+import com.vision.shoppingmall.category.model.exception.CategoryHasProductsException;
 import com.vision.shoppingmall.category.model.exception.CategoryNameAlreadyExistsException;
 import com.vision.shoppingmall.category.model.exception.CategoryNotFoundException;
 import com.vision.shoppingmall.category.model.request.CreateCategoryRequest;
@@ -57,6 +58,16 @@ public class CategoryService {
     category.update(categoryName);
     categoryRepository.save(category);
     return new UpdateCategoryResponse(category.getId(), category.getCategoryName());
+  }
+
+  @Transactional
+  public void delete(Long categoryId) {
+    Category category = categoryRepository.findById(categoryId)
+        .orElseThrow(CategoryNotFoundException::new);
+    if (category.getProducts() != null && !category.getProducts().isEmpty())
+      throw new CategoryHasProductsException();
+
+    categoryRepository.delete(category);
   }
 
 }

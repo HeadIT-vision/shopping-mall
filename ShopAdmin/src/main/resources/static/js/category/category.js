@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+  /*
+  * 카테고리 생성 및 수정 관련
+   */
   document.getElementById('create-category').addEventListener('click', function () {
     openModal('/categories/new-category');
   });
@@ -9,7 +13,42 @@ document.addEventListener('DOMContentLoaded', function () {
       openModal(`/categories/update-category/${categoryId}`);
     });
   });
+
+  /*
+  * 카테고리 삭제 관련
+  * */
+  document.addEventListener('click', (event) => {
+    if (event.target.classList.contains('btn-delete')) {
+      const categoryId = event.target.getAttribute('data');
+      if (confirm('해당 카테고리를 정말 삭제하시겠습니까?')) {
+        deleteCategory(categoryId);
+      }
+    }
+  });
 });
+
+/**
+ * 카테고리 삭제 처리
+ * @param {bigint} categoryId - 삭제할 카테고리 ID
+ */
+function deleteCategory(categoryId) {
+  fetch(`/api/categories/${categoryId}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' }
+  })
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(error => {
+            alert('카테고리 삭제 중 오류가 발생했습니다. \n' + error.message);
+          });
+        }
+        location.reload();
+      })
+      .catch(error => {
+        console.error(error);
+      });
+}
+
 
 /**
  * 모달 열기 함수
@@ -60,7 +99,6 @@ function submitForm(form, url) {
         return response.json();
       })
       .then(data => {
-        console.log('data', data)
         const errorMessage = data.message || '알 수 없는 오류가 발생했습니다.';
         document.querySelector('#category-name-error').textContent = errorMessage;
         document.querySelector('#category-name-error').classList.remove('hidden');
