@@ -2,16 +2,16 @@ package com.vision.shoppingmall.category.model.response;
 
 import com.vision.shoppingmall.category.model.entity.Category;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigInteger;
 
-@Getter
-public class CreateCategoryResponse {
-  private Long id;
-  private String categoryName;
 
-  public CreateCategoryResponse(Category category) {
-    this.id = category.getId();
-    this.categoryName = category.getCategoryName();
-  }
+@Getter
+@Setter
+@RequiredArgsConstructor
+public class CreateCategoryResponse {
+  private final Long id;
+  private final String categoryName;
 }

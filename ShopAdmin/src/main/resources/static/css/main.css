@@ -32,8 +32,8 @@ input {
     box-sizing: border-box;
 }
 input:focus, select:focus {
-    border-color: #EAEAEA;  /* 포커스 시 보더 색을 초록색으로 변경 */
-    outline: none;  /* 포커스 시 아웃라인을 제거 */
+    border-color: #EAEAEA;
+    outline: none;
 }
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -74,6 +74,12 @@ input[type="number"] {
 /* button */
 button {
     border-radius: 4px;
+}
+button:disabled {
+    background-color: #EAEAEA;
+    border: 1px solid #EAEAEA;
+    cursor: none;
+    color: #555555;
 }
 .btn-orange {
     background-color: #E74E0F;
