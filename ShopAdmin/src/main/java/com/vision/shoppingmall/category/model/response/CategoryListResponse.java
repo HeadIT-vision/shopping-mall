@@ -13,4 +13,5 @@ import java.math.BigInteger;
 public class CategoryListResponse {
   private final Long id;
   private final String categoryName;
+  private final long productCount;
 }

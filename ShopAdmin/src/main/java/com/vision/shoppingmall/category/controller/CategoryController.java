@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/categories")
@@ -48,12 +47,10 @@ public class CategoryController {
 
   @GetMapping("/update-category/{id}")
   public String updateCategory(@PathVariable("id") Long categoryId, Model model) {
-    Optional<CategoryListResponse> category = categoryService.getCategoryById(categoryId);
-    if (category.isEmpty())
-      return "redirect:/categories";
+    CategoryResponse category = categoryService.getCategoryById(categoryId);
 
     model.addAttribute("modalTitle", "카테고리 수정하기");
-    model.addAttribute("category", category.get());
+    model.addAttribute("category", category);
     return "category/category-form";
   }
 

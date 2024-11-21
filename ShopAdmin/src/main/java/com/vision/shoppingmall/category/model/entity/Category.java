@@ -4,8 +4,6 @@ import com.vision.shoppingmall.category.model.request.CreateCategoryRequest;
 import com.vision.shoppingmall.product.model.entity.Product;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.math.BigInteger;
 import java.util.List;
 
 @Entity(name = "categories")
