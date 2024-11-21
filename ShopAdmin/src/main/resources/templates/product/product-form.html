@@ -2,7 +2,59 @@
 <html lang="ko"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{common/layouts/layout}">
+<head>
+    <link rel="stylesheet" th:href="@{/css/product/product.css}"/>
+</head>
 <body>
+<section layout:fragment="contentFragment" class="mx-auto w-full">
+    <div th:replace="~{common/fragments/title :: titleFragment(title=${'상품 등록'})}"></div>
 
+    <div class="min-w-96">
+        <div class="mt-10 text-xl font-semibold">기본 정보</div>
+        <div class="content-area">
+            <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
+                <label for="productName" class="lg:w-52 md:w-full flex items-center">상품명</label>
+                <input type="text" id="productName" name="productName" class="flex-row border my-2 w-full sm:min-w-[260px] md:max-w-[420px]" placeholder="상품명을 입력하세요">
+            </div>
+            <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
+                <label for="categoryName" class="lg:w-52 md:w-full flex items-center">카테고리명</label>
+                <input type="text" id="categoryName" name="categoryName" class="border my-2 w-full sm:min-w-[260px] md:max-w-[420px]" placeholder="카테고리명을 입력하세요">
+            </div>
+        </div>
+
+        <!-- 판매정보 섹션 -->
+        <div class="mt-10 text-xl font-semibold">판매 정보</div>
+        <div class="content-area">
+            <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
+                <label for="purchasePrice" class="lg:w-52 md:w-full flex items-center">매입가</label>
+                <input type="number" id="purchasePrice" name="purchasePrice" class="border my-2 w-full sm:min-w-[260px] md:max-w-[420px]" placeholder="매입가를 입력하세요">
+            </div>
+            <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
+                <label for="salePrice" class="lg:w-52 md:w-full flex items-center">판매가</label>
+                <input type="number" id="salePrice" name="salePrice" class="border my-2 w-full sm:min-w-[260px] md:max-w-[420px]" placeholder="판매가를 입력하세요">
+            </div>
+            <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
+                <label for="discountPrice" class="lg:w-52 md:w-full flex items-center">할인가</label>
+                <input type="number" id="discountPrice" name="discountPrice" class="border my-2 w-full sm:min-w-[260px] md:max-w-[420px]" placeholder="할인가를 입력하세요">
+            </div>
+        </div>
+
+        <!-- 이미지 정보 섹션 -->
+        <div>
+            <div class="mt-10 text-xl font-semibold">이미지 정보</div>
+            <div class="content-area">
+                <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
+                    <label for="thumbnailImage" class="lg:w-52 md:w-full flex items-center">썸네일 이미지</label>
+                    <input type="file" id="thumbnailImage" name="thumbnailImage" class="h-48 my-2 w-full sm:min-w-[260px] md:max-w-[420px]">
+                </div>
+                <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
+                    <label for="detailImage" class="lg:w-52 md:w-full flex items-center">상세 이미지</label>
+                    <input type="file" id="detailImage" name="detailImage" class="h-48 my-2 w-full sm:min-w-[260px] md:max-w-[420px]">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
 </body>
 </html>

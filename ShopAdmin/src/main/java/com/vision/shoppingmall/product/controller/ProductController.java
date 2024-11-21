@@ -27,8 +27,9 @@ public class ProductController {
 
     // GET:/new-form, "상품 등록 페이지"
     @GetMapping("/new-product")
-    public String createProductForm() {
-        return null;
+    public String createProductForm(Model model) {
+        model.addAttribute("pageTitle", "상품 등록");
+        return "product/product-form";
     }
 
     @PostMapping("/new-product")

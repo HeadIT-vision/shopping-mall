@@ -22,7 +22,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:if="${paging.content != null}" th:each="category, loop: ${paging.content}" class="table-row">               <td class="table-cell w-20 text-center" th:text="${loop.index + 1}"></td>
+            <tr th:if="${paging.content != null}" th:each="category, loop: ${paging.content}" class="table-row">
+                <td class="table-cell w-20 text-center" th:text="${loop.index + 1}"></td>
                 <td class="table-cell w-6/12 text-center" th:text="${category.categoryName}"></td>
                 <td class="table-cell w-2/12 text-center" th:text="${category.productCount}"></td>
                 <td class="table-cell text-center">
