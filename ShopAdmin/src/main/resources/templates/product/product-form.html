@@ -9,52 +9,126 @@
 <section layout:fragment="contentFragment" class="mx-auto w-full">
     <div th:replace="~{common/fragments/title :: titleFragment(title=${'상품 등록'})}"></div>
 
-    <div class="min-w-96">
+    <form th:action="@{/products/new-product}" th:method="post" class="content-area" th:object="${product}">
         <div class="mt-10 text-xl font-semibold">기본 정보</div>
-        <div class="content-area">
+        <div class="border-top-dgray mt-3">
             <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
-                <label for="productName" class="lg:w-52 md:w-full flex items-center">상품명</label>
-                <input type="text" id="productName" name="productName" class="flex-row border my-2 w-full sm:min-w-[260px] md:max-w-[420px]" placeholder="상품명을 입력하세요">
+                <label for="productName" class="w-52 sm:w-full lg:w-52 flex items-center">
+                    상품명 <span class="ml-0.5 color-red">*</span>
+                </label>
+                <div class="flex flex-row items-center w-9/12 sm:min-w-[260px] md:max-w-[420px]">
+                    <input type="text" id="productName" th:field="*{productName}" class="w-full mr-1.5 border my-2 flex-shrink-0" placeholder="상품명을 입력해주세요.">
+                </div>
             </div>
             <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
-                <label for="categoryName" class="lg:w-52 md:w-full flex items-center">카테고리명</label>
-                <input type="text" id="categoryName" name="categoryName" class="border my-2 w-full sm:min-w-[260px] md:max-w-[420px]" placeholder="카테고리명을 입력하세요">
+                <label for="categoryId" class="w-52 sm:w-full lg:w-52 flex items-center">
+                    카테고리명
+                    <span class="ml-0.5 color-red">*</span>
+                </label>
+                [[*{categoryId == null}]]
+                [[${product.categoryId == null}]]
+                <div class="flex flex-row items-center w-9/12 sm:min-w-[260px] md:max-w-[420px]">
+                    <select type="text" id="categoryId" th:field="*{categoryId}" name="categoryId" class="border my-2 w-full"
+                            th:classappend="*{categoryId == null} ? 'color-gray' : ''">
+                        <option th:value="${null}">카테고리를 선택해주세요.</option>
+                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
+                <label for="publisherName" class="w-52 sm:w-full lg:w-52 flex items-center">
+                    출판사
+                    <span class="ml-0.5 color-red">*</span>
+                </label>
+                <div class="flex flex-row items-center w-9/12 sm:min-w-[260px] md:max-w-[420px]">
+                    <input type="text" id="publisherName" th:field="*{publisherName}" class="border my-2 w-full" placeholder="출판사를 입력해주세요.">
+                </div>
+            </div>
+            <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
+                <label for="authorName" class="w-52 sm:w-full lg:w-52 flex items-center">
+                    저자
+                    <span class="ml-0.5 color-red">*</span>
+                </label>
+                <div class="flex flex-row items-center w-9/12 sm:min-w-[260px] md:max-w-[420px]">
+                    <input type="text" id="authorName" th:field="*{authorName}" class="border my-2 w-full" placeholder="저자를 입력해주세요.">
+                </div>
+            </div>
+            <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
+                <label for="translatorName" class="w-52 sm:w-full lg:w-52 flex items-center pr-4">옮긴이</label>
+                <div class="flex flex-row items-center w-9/12 sm:min-w-[260px] md:max-w-[420px]">
+                    <input type="text" id="translatorName" th:field="*{translatorName}" class="border my-2 w-full" placeholder="옮긴이를 입력해주세요.">
+                </div>
             </div>
         </div>
 
         <!-- 판매정보 섹션 -->
         <div class="mt-10 text-xl font-semibold">판매 정보</div>
-        <div class="content-area">
+        <div class="border-top-dgray mt-3">
             <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
-                <label for="purchasePrice" class="lg:w-52 md:w-full flex items-center">매입가</label>
-                <input type="number" id="purchasePrice" name="purchasePrice" class="border my-2 w-full sm:min-w-[260px] md:max-w-[420px]" placeholder="매입가를 입력하세요">
+                <label for="purchasePrice" class="w-52 sm:w-full lg:w-52 flex items-center">매입원가</label>
+                <div class="flex flex-row items-center w-9/12 sm:min-w-[260px] md:max-w-[420px]">
+                    <input type="text" id="purchasePrice" th:field="*{purchasePrice}" class="mr-1.5 border my-2 w-full sm:min-w-[260px] md:max-w-[420px]" placeholder="숫자만 입력해주세요.">
+                    <span class="pr-4">원</span>
+                </div>
             </div>
             <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
-                <label for="salePrice" class="lg:w-52 md:w-full flex items-center">판매가</label>
-                <input type="number" id="salePrice" name="salePrice" class="border my-2 w-full sm:min-w-[260px] md:max-w-[420px]" placeholder="판매가를 입력하세요">
+                <label for="unitPrice" class="w-52 sm:w-full lg:w-52 flex items-center">판매원가</label>
+                <div class="flex flex-row items-center w-9/12 sm:min-w-[260px] md:max-w-[420px]">
+                    <input type="text" id="unitPrice" th:field="*{unitPrice}" class="mr-1.5 border my-2 w-full sm:min-w-[260px] md:max-w-[420px]" placeholder="숫자만 입력해주세요.">
+                    <span class="pr-4">원</span>
+                </div>
             </div>
             <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
-                <label for="discountPrice" class="lg:w-52 md:w-full flex items-center">할인가</label>
-                <input type="number" id="discountPrice" name="discountPrice" class="border my-2 w-full sm:min-w-[260px] md:max-w-[420px]" placeholder="할인가를 입력하세요">
+                <label for="discountPrice" class="w-52 sm:w-full lg:w-52 flex items-center">할인금액</label>
+                <div class="flex flex-row items-center w-9/12 sm:min-w-[260px] md:max-w-[420px]">
+                    <input type="text" id="discountPrice" th:field="*{discountPrice}" class="mr-1.5 border my-2 w-full sm:min-w-[260px] md:max-w-[420px]" placeholder="숫자만 입력해주세요.">
+                    <span class="pr-4">원</span>
+                </div>
+            </div>
+            <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
+                <label for="sellingPrice" class="w-52 sm:w-full lg:w-52 flex items-center">판매가</label>
+                <div class="flex flex-row items-center w-9/12 sm:min-w-[260px] md:max-w-[420px]">
+                    <input type="text" id="sellingPrice" th:field="*{sellingPrice}" class="mr-1.5 border my-2 w-full sm:min-w-[260px] md:max-w-[420px]" placeholder="숫자만 입력해주세요.">
+                    <span class="pr-4">원</span>
+                </div>
             </div>
         </div>
 
         <!-- 이미지 정보 섹션 -->
         <div>
             <div class="mt-10 text-xl font-semibold">이미지 정보</div>
-            <div class="content-area">
+            <div class="border-top-dgray mt-3">
                 <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
                     <label for="thumbnailImage" class="lg:w-52 md:w-full flex items-center">썸네일 이미지</label>
-                    <input type="file" id="thumbnailImage" name="thumbnailImage" class="h-48 my-2 w-full sm:min-w-[260px] md:max-w-[420px]">
+                    <div class="flex flex-col w-9/12 h-48 sm:min-w-[420px] md:max-w-[420px] py-2">
+                        <div id="thumbnail-upload-area" class="thumbnail-upload-area h-full flex flex-row sm:min-w-[260px] md:max-w-[420px]">
+                            <input type="file" id="thumbnailImage" th:field="*{thumbnailImage}" class="hidden" accept="image/*">
+                            <p id="thumbnail-upload-text" class="text-base color-orange">사진 첨부하기</p>
+                            <img id="thumbnail-preview" src="" alt="미리보기" class="hidden h-full object-fit sm:min-w-[260px] md:max-w-[420px]">
+                        </div>
+                        <p class="mt-1 text-sm color-lgblack">클릭하여 파일 선택, 또는 드래그&드롭 해주세요.</p>
+                    </div>
                 </div>
                 <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
                     <label for="detailImage" class="lg:w-52 md:w-full flex items-center">상세 이미지</label>
-                    <input type="file" id="detailImage" name="detailImage" class="h-48 my-2 w-full sm:min-w-[260px] md:max-w-[420px]">
+                    <div class="flex flex-col w-9/12 h-48 sm:min-w-[420px] md:max-w-[420px] py-2">
+                        <div id="detail-upload-area" class="detail-upload-area h-full flex flex-row sm:min-w-[260px] md:max-w-[420px]">
+                            <input type="file" id="detailImage" th:field="*{detailImage}" class="hidden" accept="image/*">
+                            <p id="detail-upload-text" class="text-base color-orange">사진 첨부하기</p>
+                            <img id="detail-preview" src="" alt="미리보기" class="hidden h-full object-fit sm:min-w-[260px] md:max-w-[420px]">
+                        </div>
+                        <p class="mt-1 text-sm color-lgblack">클릭하여 파일 선택, 또는 드래그&드롭 해주세요.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
+        <div class="flex flex-row my-10 items-center justify-center gap-x-1.5">
+            <a th:href="@{/product/list}" id="btn-cancle" class="btn-gray rounded">취소하기</a>
+            <button type="submit" id="btn-save" class="btn-orange">등록하기</button>
+        </div>
+    </form>
+    <script type="text/javascript" th:src="@{/js/product/product.js}"> </script>
 </section>
 </body>
 </html>

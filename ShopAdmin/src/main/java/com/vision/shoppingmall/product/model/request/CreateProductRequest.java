@@ -4,7 +4,9 @@ import lombok.Getter;
 
 @Getter
 public class CreateProductRequest {
+
   private String productName;
+
   private Long categoryId;
   private String publisherName;
   private String authorName;
@@ -14,5 +16,5 @@ public class CreateProductRequest {
   private Double discountPrice;
   private Double sellingPrice;
   private String thumbnailImage;
-  private String productImage;
+  private String detailImage;
 }

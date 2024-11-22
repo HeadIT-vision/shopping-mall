@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     /* 사이드바 동적 높이 설정 */
     syncHeights();
     window.addEventListener("resize", syncHeights);
-    content.addEventListener("DOMSubtreeModified", syncHeights);
 });
 
 function syncHeights() {

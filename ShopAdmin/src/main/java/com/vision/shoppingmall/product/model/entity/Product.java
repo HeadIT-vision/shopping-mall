@@ -74,7 +74,7 @@ public class Product {
         .unitPrice(command.getUnitPrice())
         .sellingPrice(command.getSellingPrice())
         .thumbnail_image_data(command.getThumbnailImage())
-        .product_image_data(command.getProductImage())
+        .product_image_data(command.getDetailImage())
         .category(category)
         .build();
     product.activateProduct();
