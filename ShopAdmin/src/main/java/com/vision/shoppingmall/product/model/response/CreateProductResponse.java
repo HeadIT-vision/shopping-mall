@@ -12,10 +12,10 @@ public class CreateProductResponse {
   private final String publisherName;
   private final String authorName;
   private final String translatorName;
-  private final Double purchasePrice;
-  private final Double unitPrice;
-  private final Double discountPrice;
-  private final Double sellingPrice;
+  private final int purchasePrice;
+  private final int unitPrice;
+  private final int discountPrice;
+  private final int sellingPrice;
   private final String thumbnailImage;
   private final String productImage;
   

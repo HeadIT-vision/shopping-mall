@@ -1,10 +1,12 @@
 # BUILD
 FROM node:21-alpine3.18 AS build
 WORKDIR /app
-COPY ./ShopUser/package*.json ./
-RUN npm install
-COPY ./ShopUser ./
-RUN npm run build:prod
+#COPY ./ShopUser/package*.json ./
+#RUN npm install
+#COPY ./ShopUser ./
+#RUN npm run build:prod
+COPY ./ShopUser/dist ./dist
+COPY ./ShopUser/nginx.conf ./
 
 # RUN
 FROM nginx:alpine

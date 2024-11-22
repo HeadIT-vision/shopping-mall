@@ -1,14 +1,12 @@
 package com.vision.shoppingmall.product.model.response;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import com.vision.shoppingmall.product.model.entity.Product;
+import lombok.*;
 
 import java.math.BigInteger;
 
 @Getter
-@Setter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ProductListResponse {
     private final Long id;
     private final String productName;
@@ -17,8 +15,22 @@ public class ProductListResponse {
     private final String authorName;
     private final String translatorName;
 
-    private final Double purchasePrice;
-    private final Double unitPrice;
-    private final Double discountPrice;
-    private final Double sellingPrice;
+    private final int purchasePrice;
+    private final int unitPrice;
+    private final int discountPrice;
+    private final int sellingPrice;
+
+    public static ProductListResponse from(Product product) {
+        return new ProductListResponse(
+            product.getId(),
+            product.getProductName(),
+            product.getPublisherName(),
+            product.getAuthorName(),
+            product.getTranslatorName(),
+            product.getPurchasePrice(),
+            product.getUnitPrice(),
+            product.getDiscountPrice(),
+            product.getSellingPrice()
+        );
+    }
 }
