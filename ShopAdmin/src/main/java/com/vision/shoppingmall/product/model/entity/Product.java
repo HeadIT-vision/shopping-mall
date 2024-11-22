@@ -33,16 +33,16 @@ public class Product {
   private String translatorName;
 
   @Column(name = "purchase_price", nullable = false)
-  private Double purchasePrice;
+  private int purchasePrice;
 
   @Column(name = "unit_price", nullable = false)
-  private Double unitPrice;
+  private int unitPrice;
 
   @Column(name = "discount_price")
-  private Double discountPrice;
+  private int discountPrice;
 
   @Column(name = "selling_price", nullable = false)
-  private Double sellingPrice;
+  private int sellingPrice;
 
   @Column(name = "description", nullable = false, columnDefinition = "TEXT")
   private String description;

@@ -23,10 +23,7 @@ public class ProductService {
     PageRequest pageRequest = PageRequest.of(page, 10);
     Page<Product> productPage = productRepository.findAll(pageRequest);
 
-    return productPage.map(
-      product -> new ProductListResponse(product.getId(), product.getProductName(), product.getPublisherName(),
-        product.getAuthorName(), product.getTranslatorName(), product.getPurchasePrice(), product.getUnitPrice(), product.getUnitPrice(),
-        product.getSellingPrice()));
+    return productPage.map(ProductListResponse::from);
   }
 
   public CreateProductResponse create(CreateProductRequest request) {
