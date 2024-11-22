@@ -16,7 +16,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +33,17 @@ public class CategoryService {
         new CategoryListResponse(
             category.getId(), category.getCategoryName(),
             category.getProducts() != null ? category.getProducts().size() : 0));
+  }
+
+  public List<CategoryListResponse> getAllCategories() {
+    List<Category> categories = categoryRepository.findAll();
+    return categories.stream()
+        .map(category ->
+            new CategoryListResponse(
+                category.getId(),
+                category.getCategoryName(),
+                0))
+        .collect(Collectors.toList());
   }
 
   public CreateCategoryResponse create(CreateCategoryRequest request) {

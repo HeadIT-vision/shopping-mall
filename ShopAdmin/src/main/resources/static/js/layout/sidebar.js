@@ -1,16 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     const currentPath = window.location.pathname;
-    console.log('currentPath:', currentPath);
-
-    // 메뉴 항목들을 가져옵니다.
     const menuItems = document.querySelectorAll('.menu-item');
 
     menuItems.forEach(item => {
         const menuLink = item; // item 자체가 <a> 태그입니다.
         const menuIcon = menuLink.querySelector('img'); // <a> 태그 안의 <img> 태그를 찾습니다.
 
-        // 현재 경로가 메뉴 항목의 href와 일치하면 active 클래스를 추가하고 이미지를 selected로 변경
-        if (currentPath === menuLink.getAttribute('href')) {
+        if (currentPath.includes(menuLink.getAttribute('href'))) {
             item.classList.add('active');
             menuIcon.classList.add('selected');
         } else {
@@ -18,4 +14,20 @@ document.addEventListener("DOMContentLoaded", () => {
             menuIcon.classList.remove('selected');
         }
     });
+
+    /* 사이드바 동적 높이 설정 */
+    syncHeights();
+    window.addEventListener("resize", syncHeights);
 });
+
+function syncHeights() {
+    const sidebar = document.querySelector(".sidebar-fragment");
+    const content = document.getElementsByTagName("section");
+
+    if (content && content[0] && sidebar) {
+        const contentHeight = content[0].scrollHeight+160;
+        const windowHeight = window.innerHeight;
+        sidebar.style.height = `${Math.max(contentHeight, windowHeight)}px`;
+    }
+}
+

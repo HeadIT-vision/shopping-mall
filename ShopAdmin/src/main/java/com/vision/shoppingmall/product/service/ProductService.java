@@ -27,8 +27,10 @@ public class ProductService {
   }
 
   public CreateProductResponse create(CreateProductRequest request) {
-    Category category = categoryRepository.findById(request.getCategoryId())
-        .orElseThrow(CategoryNotFoundException::new);
+    Category category = request.getCategoryId() != null
+      ? categoryRepository.findById(request.getCategoryId())
+        .orElseThrow(CategoryNotFoundException::new)
+      : null;
 
     Product newProduct = Product.create(request, category);
     productRepository.save(newProduct);
