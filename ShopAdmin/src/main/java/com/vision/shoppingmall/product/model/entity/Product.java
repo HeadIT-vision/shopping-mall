@@ -44,20 +44,20 @@ public class Product {
   @Column(name = "selling_price", nullable = false)
   private int sellingPrice;
 
-  @Column(name = "description", nullable = false, columnDefinition = "TEXT")
+  @Column(name = "description", nullable = true, columnDefinition = "TEXT")
   private String description;
 
-  @Column(name = "thumbnail_image_data", nullable = false, columnDefinition = "TEXT")
+  @Column(name = "thumbnail_image_data", nullable = false, columnDefinition = "LONGTEXT")
   private String thumbnail_image_data;
 
-  @Column(name = "product_image_data", nullable = false, columnDefinition = "TEXT")
+  @Column(name = "product_image_data", nullable = false, columnDefinition = "LONGTEXT")
   private String product_image_data;
 
   @Column(name = "product_status", nullable = false, length = 10)
   private String product_status;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "category_id")
+  @JoinColumn(name = "category_id", nullable = true)
   private Category category;
 
   public void activateProduct() {
@@ -73,8 +73,8 @@ public class Product {
         .purchasePrice(command.getPurchasePrice())
         .unitPrice(command.getUnitPrice())
         .sellingPrice(command.getSellingPrice())
-        .thumbnail_image_data(command.getThumbnailImage())
-        .product_image_data(command.getDetailImage())
+        .thumbnail_image_data(command.getThumbnailImageData())
+        .product_image_data(command.getDetailImageData())
         .category(category)
         .build();
     product.activateProduct();

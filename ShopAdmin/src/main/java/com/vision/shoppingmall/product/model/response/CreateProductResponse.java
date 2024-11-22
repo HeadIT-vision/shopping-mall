@@ -22,7 +22,7 @@ public class CreateProductResponse {
   public static CreateProductResponse from(Product product) {
     return CreateProductResponse.builder()
         .productName(product.getProductName())
-        .categoryId(product.getCategory().getId())
+        .categoryId(product.getCategory() != null ? product.getCategory().getId() : null)
         .publisherName(product.getPublisherName())
         .authorName(product.getAuthorName())
         .translatorName(product.getTranslatorName())

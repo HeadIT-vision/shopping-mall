@@ -18,7 +18,7 @@ a.btn-gray:hover {
 .product-content {
   border-bottom: 1px solid #A0A0A0;
   label {
-    height: 54px;
+    min-height: 54px;
     padding-left: 24px;
     margin-right: 2px;
     background-color: #F9FAFB;

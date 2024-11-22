@@ -35,22 +35,22 @@ public class ProductController {
     @GetMapping("/new-product")
     public String createProductForm(Model model) {
         List<CategoryListResponse> categories = categoryService.getAllCategories();
-
-        model.addAttribute("pageTitle", "상품 등록");
         model.addAttribute("product", new CreateProductRequest());
-        categories.add(new CategoryListResponse(1L, "문학",0));
         model.addAttribute("categories", categories);
         return "product/product-form";
     }
 
+    // POST:/new-form, "상품 등록"
     @PostMapping("/new-product")
-    public String createProduct(@ModelAttribute @Valid CreateProductRequest request, BindingResult bindingResult) {
+    public String createProduct(@ModelAttribute("product") @Valid CreateProductRequest request, BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()) {
+            List<CategoryListResponse> categories = categoryService.getAllCategories();
+            model.addAttribute("product", request);
+            model.addAttribute("categories", categories);
             return "product/product-form";
         }
-
-        productService.create(request);  // 저장
-        return "redirect:/product/list";
+        productService.create(request);
+        return "redirect:/products";
     }
 
     // GET:/update-form, "상품 수정 페이지"
