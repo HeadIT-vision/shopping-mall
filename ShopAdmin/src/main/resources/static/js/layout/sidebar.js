@@ -1,8 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     const currentPath = window.location.pathname;
-    console.log('currentPath:', currentPath);
-
-    // 메뉴 항목들을 가져옵니다.
     const menuItems = document.querySelectorAll('.menu-item');
 
     menuItems.forEach(item => {
@@ -17,4 +14,21 @@ document.addEventListener("DOMContentLoaded", () => {
             menuIcon.classList.remove('selected');
         }
     });
+
+    /* 사이드바 동적 높이 설정 */
+    syncHeights();
+    window.addEventListener("resize", syncHeights);
+    content.addEventListener("DOMSubtreeModified", syncHeights);
 });
+
+function syncHeights() {
+    const sidebar = document.querySelector(".sidebar-fragment");
+    const content = document.getElementsByTagName("section");
+
+    if (content && content[0] && sidebar) {
+        const contentHeight = content[0].scrollHeight+160;
+        const windowHeight = window.innerHeight;
+        sidebar.style.height = `${Math.max(contentHeight, windowHeight)}px`;
+    }
+}
+
