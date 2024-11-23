@@ -3,7 +3,9 @@ package com.vision.shoppingmall.product.controller;
 import com.vision.shoppingmall.category.model.response.CategoryListResponse;
 import com.vision.shoppingmall.category.service.CategoryService;
 import com.vision.shoppingmall.product.model.request.CreateProductRequest;
+import com.vision.shoppingmall.product.model.request.UpdateProductRequest;
 import com.vision.shoppingmall.product.model.response.ProductListResponse;
+import com.vision.shoppingmall.product.model.response.ProductResponse;
 import com.vision.shoppingmall.product.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -53,14 +55,27 @@ public class ProductController {
         return "redirect:/products";
     }
 
-    // GET:/update-form, "상품 수정 페이지"
-    @GetMapping("/update-product")
-    public String updateProductForm() {
-        return null;
+    // GET:/update-form/{id}, "상품 수정 페이지"
+    @GetMapping("/update-product/{id}")
+    public String updateProductForm(@PathVariable("id") Long productId, Model model) {
+        ProductResponse product = productService.getProductById(productId);
+        List<CategoryListResponse> categories = categoryService.getAllCategories();
+        model.addAttribute("product", product);
+        model.addAttribute("categories", categories);
+        return "product/product-form";
     }
 
-    @PostMapping("/update-product")
-    public String updateProduct() {
-        return null;
+    // Post:/update-form/{id}, "상품 수정"
+    @PostMapping("/update-product/{id}")
+    public String updateProduct(@PathVariable("id") Long productId, @ModelAttribute("product") @Valid UpdateProductRequest request, BindingResult bindingResult, Model model) {
+        if(bindingResult.hasErrors()) {
+            List<CategoryListResponse> categories = categoryService.getAllCategories();
+            model.addAttribute("product", request);
+            model.addAttribute("categories", categories);
+            return "product/product-form";
+        }
+
+        productService.updateProduct(request);
+        return "redirect:/products";
     }
 }

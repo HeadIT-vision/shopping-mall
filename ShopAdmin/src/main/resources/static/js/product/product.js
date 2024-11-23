@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
+  const path = window.location.pathname;
+  const productIdMatch= path.match(/\/update-product\/(\d+)/);
+  const productId = productIdMatch ? productIdMatch[1] : null;
+  setMode(productId);
+
   // 썸네일 이미지 관련 요소들
   const thumbnailUploadArea = document.getElementById('thumbnail-upload-area');
   const thumbnailInput = document.getElementById('thumbnailImage');
@@ -69,7 +74,39 @@ document.addEventListener('DOMContentLoaded', function () {
   discountPriceInput.addEventListener("input", () => setDefaultValue(discountPriceInput));
   sellingPriceInput.addEventListener("input", () => setDefaultValue(sellingPriceInput)); // 판매가는 readonly이므로 변경 불가
 
+  const categorySelect = document.getElementById('categoryId');
+  updateCategoryColor(categorySelect);
+  categorySelect.addEventListener('change', (event) => updateCategoryColor(event.target));
 });
+
+/**
+ * 선택된 카테고리에 따라 색상 클래스를 변경하는 함수
+ * @param {HTMLSelectElement} selectElement - 카테고리 선택 `select` 요소
+ */
+function updateCategoryColor(selectElement) {
+  if (!selectElement.value) {
+    selectElement.classList.add('color-gray');
+    selectElement.classList.remove('color-black');
+  } else {
+    selectElement.classList.add('color-black');
+    selectElement.classList.remove('color-gray');
+  }
+}
+
+/**
+ * mode에 따른 타이틀, form 경로 메핑
+ * @param {bigint} productId - productId, 수정시에만 존재
+ */
+function setMode(productId) {
+  if (productId) {
+    const title = document.getElementById('main-title');
+    const form = document.getElementById('product-form');
+    const input = document.getElementById('id');
+    title.innerText = '상품 수정';
+    form.action = '/products/update-product/' + productId;
+    input.value = productId;
+  }
+}
 
 /**
  * 이미지 업로드 영역 초기화
@@ -102,9 +139,11 @@ function setupImageUpload(uploadArea, input, preview, text, base64Input) {
  * @param {HTMLInputElement} base64Input - base64 데이터를 담을 숨겨진 input 요소
  */
 function handleFileSelect(event, previewElement, textElement, base64Input) {
-  const file = event.target.files[0];
-  if (file && file.type.startsWith('image/')) {
-    handleFilePreview(file, previewElement, textElement, base64Input);
+  const files = event.target.files;
+  if(files.length === 0) return;
+
+  if (files[0] && files[0].type.startsWith('image/')) {
+    handleFilePreview(files[0], previewElement, textElement, base64Input);
   } else {
     alert('이미지 파일만 선택 가능합니다.');
   }
