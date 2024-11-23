@@ -29,6 +29,13 @@ a.btn-gray:hover {
   input, select {
     max-width: 420px;
   }
+  p {
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+    font-size: calc(1rem - 0.1vw);
+    line-height: 1.2;
+  }
 }
 
 .thumbnail-upload-area, .detail-upload-area {
@@ -43,4 +50,8 @@ a.btn-gray:hover {
   img {
     max-height: 150px;
   }
+}
+
+.hidden {
+  display: none !important;
 }

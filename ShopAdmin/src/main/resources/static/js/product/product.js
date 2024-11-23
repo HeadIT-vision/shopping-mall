@@ -58,15 +58,16 @@ document.addEventListener('DOMContentLoaded', function () {
   discountPriceInput.addEventListener("input", calculateSellingPrice);
 
   function setDefaultValue(inputElement) {
-    if (!inputElement.value || inputElement.value === "") {
-      inputElement.value = 0;
-    }
+    let value = inputElement.value;
+    value = parseFloat(value.replace(/[^0-9]/g, ""));
+    if (!value) value = 0;
+    inputElement.value = value;
   }
 
-  purchasePriceInput.addEventListener("blur", () => setDefaultValue(purchasePriceInput));
-  unitPriceInput.addEventListener("blur", () => setDefaultValue(unitPriceInput));
-  discountPriceInput.addEventListener("blur", () => setDefaultValue(discountPriceInput));
-  sellingPriceInput.addEventListener("blur", () => setDefaultValue(sellingPriceInput)); // 판매가는 readonly이므로 변경 불가
+  purchasePriceInput.addEventListener("input", () => setDefaultValue(purchasePriceInput));
+  unitPriceInput.addEventListener("input", () => setDefaultValue(unitPriceInput));
+  discountPriceInput.addEventListener("input", () => setDefaultValue(discountPriceInput));
+  sellingPriceInput.addEventListener("input", () => setDefaultValue(sellingPriceInput)); // 판매가는 readonly이므로 변경 불가
 
 });
 
