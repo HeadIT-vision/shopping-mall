@@ -9,7 +9,9 @@
 <section layout:fragment="contentFragment" class="mx-auto w-full">
     <div th:replace="~{common/fragments/title :: titleFragment(title=${'상품 등록'})}"></div>
 
-    <form th:object="${product}" th:action="@{/products/new-product}" th:method="post" class="content-area">
+    <form th:object="${product}" th:action="@{/products/new-product}" th:method="post" id="product-form" class="content-area">
+        <input type="hidden" id="id" name="id" />
+
         <div class="mt-10 text-xl font-semibold">기본 정보</div>
         <div class="border-top-dgray mt-3">
             <div class="product-content flex flex-col lg:flex-row lg:items-center lg:space-x-4">
@@ -27,10 +29,9 @@
                     <span class="ml-0.5 color-red">*</span>
                 </label>
                 <div class="flex flex-col w-9/12 sm:min-w-[260px] md:max-w-[420px]">
-                    <select type="text" id="categoryId" th:field="*{categoryId}" name="categoryId" class="border my-2 w-full"
-                            th:classappend="*{categoryId == null} ? 'color-gray' : ''">
-                        <option th:value="${null}">카테고리를 선택해주세요.</option>
-                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
+                    <select type="text" id="categoryId" th:field="*{categoryId}" name="categoryId" class="border my-2 w-full">
+                        <option class="color-gray" th:value="${null}">카테고리를 선택해주세요.</option>
+                        <option class="color-black" th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
                     </select>
                     <p th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}" class="text-wrap color-red"></p>
                 </div>

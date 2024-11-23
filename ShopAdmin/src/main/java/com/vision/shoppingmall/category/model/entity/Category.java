@@ -30,7 +30,7 @@ public class Category {
         .build();
   }
 
-  public void  update(String categoryName) {
+  public void update(String categoryName) {
     this.categoryName = categoryName;
   }
 }

@@ -2,6 +2,7 @@ package com.vision.shoppingmall.product.model.entity;
 
 import com.vision.shoppingmall.category.model.entity.Category;
 import com.vision.shoppingmall.product.model.request.CreateProductRequest;
+import com.vision.shoppingmall.product.model.request.UpdateProductRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -79,5 +80,19 @@ public class Product {
         .build();
     product.activateProduct();
     return product;
+  }
+
+  public void update(UpdateProductRequest command, Category category) {
+    this.productName = command.getProductName();
+    this.category = category;
+    this.publisherName = command.getPublisherName();
+    this.authorName = command.getAuthorName();
+    this.translatorName = command.getTranslatorName();
+    this.purchasePrice = command.getPurchasePrice();
+    this.unitPrice = command.getUnitPrice();
+    this.discountPrice = command.getDiscountPrice();
+    this.sellingPrice = command.getSellingPrice();
+    this.thumbnail_image_data = command.getThumbnailImageData();
+    this.product_image_data = command.getDetailImageData();
   }
 }
