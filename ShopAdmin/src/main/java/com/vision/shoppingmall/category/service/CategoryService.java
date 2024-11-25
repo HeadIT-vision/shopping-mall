@@ -10,6 +10,7 @@ import com.vision.shoppingmall.category.model.response.CategoryResponse;
 import com.vision.shoppingmall.category.model.response.CreateCategoryResponse;
 import com.vision.shoppingmall.category.model.response.UpdateCategoryResponse;
 import com.vision.shoppingmall.category.repository.CategoryRepository;
+import com.vision.shoppingmall.product.model.entity.ProductStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,7 +33,10 @@ public class CategoryService {
     return categoryPage.map(category ->
         new CategoryListResponse(
             category.getId(), category.getCategoryName(),
-            category.getProducts() != null ? category.getProducts().size() : 0));
+            category.getProducts() != null
+                ? category.getProducts().stream()
+                .filter(product -> product.getProductStatus() == ProductStatus.ACTIVE)
+                .count() : 0));
   }
 
   public List<CategoryListResponse> getAllCategories() {
@@ -77,7 +81,10 @@ public class CategoryService {
   public void delete(Long categoryId) {
     Category category = categoryRepository.findById(categoryId)
         .orElseThrow(CategoryNotFoundException::new);
-    if (category.getProducts() != null && !category.getProducts().isEmpty())
+
+    if (category.getProducts() != null &&
+          category.getProducts().stream().anyMatch(product
+              -> product.getProductStatus() == ProductStatus.ACTIVE))
       throw new CategoryHasProductsException();
 
     categoryRepository.delete(category);

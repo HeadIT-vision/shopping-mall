@@ -35,8 +35,8 @@ public class ProductResponse {
         product.getUnitPrice(),
         product.getDiscountPrice(),
         product.getSellingPrice(),
-        product.getThumbnail_image_data(),
-        product.getProduct_image_data()
+        product.getThumbnailImageData(),
+        product.getProductImageData()
     );
   }
 }

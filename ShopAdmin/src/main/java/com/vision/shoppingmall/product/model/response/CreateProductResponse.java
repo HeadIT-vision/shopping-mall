@@ -30,8 +30,8 @@ public class CreateProductResponse {
         .unitPrice(product.getUnitPrice())
         .discountPrice(product.getDiscountPrice())
         .sellingPrice(product.getSellingPrice())
-        .thumbnailImage(product.getThumbnail_image_data())
-        .productImage(product.getProduct_image_data())
+        .thumbnailImage(product.getThumbnailImageData())
+        .productImage(product.getProductImageData())
         .build();
   }
 }

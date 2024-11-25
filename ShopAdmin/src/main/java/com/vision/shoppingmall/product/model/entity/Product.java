@@ -49,24 +49,21 @@ public class Product {
   private String description;
 
   @Column(name = "thumbnail_image_data", nullable = false, columnDefinition = "LONGTEXT")
-  private String thumbnail_image_data;
+  private String thumbnailImageData;
 
   @Column(name = "product_image_data", nullable = false, columnDefinition = "LONGTEXT")
-  private String product_image_data;
+  private String productImageData;
 
+  @Convert(converter = ProductStatusConverter.class)
   @Column(name = "product_status", nullable = false, length = 10)
-  private String product_status;
+  private ProductStatus productStatus;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "category_id", nullable = true)
   private Category category;
 
-  public void activateProduct() {
-    this.product_status = "Y";
-  }
-
   public static Product create(CreateProductRequest command, Category category) {
-    Product product = Product.builder()
+    return Product.builder()
         .productName(command.getProductName())
         .publisherName(command.getPublisherName())
         .authorName(command.getAuthorName())
@@ -74,12 +71,11 @@ public class Product {
         .purchasePrice(command.getPurchasePrice())
         .unitPrice(command.getUnitPrice())
         .sellingPrice(command.getSellingPrice())
-        .thumbnail_image_data(command.getThumbnailImageData())
-        .product_image_data(command.getDetailImageData())
+        .thumbnailImageData(command.getThumbnailImageData())
+        .productImageData(command.getDetailImageData())
+        .productStatus(ProductStatus.ACTIVE)
         .category(category)
         .build();
-    product.activateProduct();
-    return product;
   }
 
   public void update(UpdateProductRequest command, Category category) {
@@ -92,7 +88,11 @@ public class Product {
     this.unitPrice = command.getUnitPrice();
     this.discountPrice = command.getDiscountPrice();
     this.sellingPrice = command.getSellingPrice();
-    this.thumbnail_image_data = command.getThumbnailImageData();
-    this.product_image_data = command.getDetailImageData();
+    this.thumbnailImageData = command.getThumbnailImageData();
+    this.productImageData = command.getDetailImageData();
+  }
+
+  public void delete() {
+    this.productStatus = ProductStatus.INACTIVE;
   }
 }

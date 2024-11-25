@@ -1,6 +1,7 @@
 package com.vision.shoppingmall.product.service;
 
 import com.vision.shoppingmall.category.model.entity.Category;
+import com.vision.shoppingmall.product.model.entity.ProductStatus;
 import com.vision.shoppingmall.product.model.exception.ProductNotFoundException;
 import com.vision.shoppingmall.category.model.exception.CategoryNotFoundException;
 import com.vision.shoppingmall.category.repository.CategoryRepository;
@@ -24,7 +25,7 @@ public class ProductService {
   
   public Page<ProductListResponse> getProducts(int page) {
     PageRequest pageRequest = PageRequest.of(page, 10);
-    Page<Product> productPage = productRepository.findAll(pageRequest);
+    Page<Product> productPage = productRepository.findByProductStatus(ProductStatus.ACTIVE, pageRequest);
 
     return productPage.map(ProductListResponse::from);
   }
@@ -41,14 +42,14 @@ public class ProductService {
   }
 
   public ProductResponse getProductById(Long productId) {
-    Product product = productRepository.findById(productId)
-      .orElseThrow(ProductNotFoundException::new);
+    Product product = productRepository.findByIdAndProductStatus(productId, ProductStatus.ACTIVE)
+        .orElseThrow(ProductNotFoundException::new);
 
     return ProductResponse.from(product);
   }
 
   public void updateProduct(UpdateProductRequest request) {
-    Product product = productRepository.findById(request.getId())
+    Product product = productRepository.findByIdAndProductStatus(request.getId(), ProductStatus.ACTIVE)
         .orElseThrow(ProductNotFoundException::new);
     Category category = request.getCategoryId() != null
         ? categoryRepository.findById(request.getCategoryId())
@@ -56,6 +57,13 @@ public class ProductService {
         : null;
 
     product.update(request, category);
+    productRepository.save(product);
+  }
+
+  public void delete(Long productId) {
+    Product product = productRepository.findByIdAndProductStatus(productId, ProductStatus.ACTIVE)
+        .orElseThrow(ProductNotFoundException::new);
+    product.delete();
     productRepository.save(product);
   }
 
