@@ -25,7 +25,6 @@ public class Category {
   private String categoryName;
 
   @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-  @OnDelete(action = OnDeleteAction.SET_NULL)
   private List<Product> products;
 
   public static Category create(CreateCategoryRequest command) {

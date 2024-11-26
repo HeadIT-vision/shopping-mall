@@ -14,6 +14,7 @@ public class ProductResponse {
   private final String publisherName;
   private final String authorName;
   private final String translatorName;
+  private final String description;
 
   private final int purchasePrice;
   private final int unitPrice;
@@ -31,6 +32,7 @@ public class ProductResponse {
         product.getPublisherName(),
         product.getAuthorName(),
         product.getTranslatorName(),
+        product.getDescription(),
         product.getPurchasePrice(),
         product.getUnitPrice(),
         product.getDiscountPrice(),

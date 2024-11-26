@@ -45,7 +45,7 @@ public class Product {
   @Column(name = "selling_price", nullable = false)
   private int sellingPrice;
 
-  @Column(name = "description", nullable = true, columnDefinition = "TEXT")
+  @Column(name = "description", nullable = false, columnDefinition = "TEXT")
   private String description;
 
   @Column(name = "thumbnail_image_data", nullable = false, columnDefinition = "LONGTEXT")
@@ -68,6 +68,7 @@ public class Product {
         .publisherName(command.getPublisherName())
         .authorName(command.getAuthorName())
         .translatorName(command.getTranslatorName())
+        .description(command.getDescription())
         .purchasePrice(command.getPurchasePrice())
         .unitPrice(command.getUnitPrice())
         .sellingPrice(command.getSellingPrice())
@@ -84,6 +85,7 @@ public class Product {
     this.publisherName = command.getPublisherName();
     this.authorName = command.getAuthorName();
     this.translatorName = command.getTranslatorName();
+    this.description = command.getDescription();
     this.purchasePrice = command.getPurchasePrice();
     this.unitPrice = command.getUnitPrice();
     this.discountPrice = command.getDiscountPrice();

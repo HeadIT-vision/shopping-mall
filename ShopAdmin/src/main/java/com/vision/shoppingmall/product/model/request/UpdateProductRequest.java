@@ -27,6 +27,9 @@ public class UpdateProductRequest {
   @Size(max = 50, message = "번역자 이름은 최대 50자까지 입력 가능합니다.")
   private String translatorName;
 
+  @NotBlank(message = "소개글은 필수 입력 항목입니다.")
+  private String description;
+
   @Positive(message = "매입 가격은 0보다 큰 값을 입력해야 합니다.")
   private int purchasePrice;
 
