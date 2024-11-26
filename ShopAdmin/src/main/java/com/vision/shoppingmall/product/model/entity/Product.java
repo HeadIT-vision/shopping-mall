@@ -59,7 +59,7 @@ public class Product {
   private ProductStatus productStatus;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "category_id", nullable = true)
+  @JoinColumn(name = "category_id", nullable = true, foreignKey = @ForeignKey(name = "fk_product_category", foreignKeyDefinition = "FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE SET NULL"))
   private Category category;
 
   public static Product create(CreateProductRequest command, Category category) {
