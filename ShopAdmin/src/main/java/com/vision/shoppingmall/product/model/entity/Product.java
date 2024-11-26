@@ -45,41 +45,38 @@ public class Product {
   @Column(name = "selling_price", nullable = false)
   private int sellingPrice;
 
-  @Column(name = "description", nullable = true, columnDefinition = "TEXT")
+  @Column(name = "description", nullable = false, columnDefinition = "TEXT")
   private String description;
 
   @Column(name = "thumbnail_image_data", nullable = false, columnDefinition = "LONGTEXT")
-  private String thumbnail_image_data;
+  private String thumbnailImageData;
 
   @Column(name = "product_image_data", nullable = false, columnDefinition = "LONGTEXT")
-  private String product_image_data;
+  private String productImageData;
 
+  @Convert(converter = ProductStatusConverter.class)
   @Column(name = "product_status", nullable = false, length = 10)
-  private String product_status;
+  private ProductStatus productStatus;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "category_id", nullable = true, foreignKey = @ForeignKey(name = "fk_product_category", foreignKeyDefinition = "FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE SET NULL"))
   private Category category;
 
-  public void activateProduct() {
-    this.product_status = "Y";
-  }
-
   public static Product create(CreateProductRequest command, Category category) {
-    Product product = Product.builder()
+    return Product.builder()
         .productName(command.getProductName())
         .publisherName(command.getPublisherName())
         .authorName(command.getAuthorName())
         .translatorName(command.getTranslatorName())
+        .description(command.getDescription())
         .purchasePrice(command.getPurchasePrice())
         .unitPrice(command.getUnitPrice())
         .sellingPrice(command.getSellingPrice())
-        .thumbnail_image_data(command.getThumbnailImageData())
-        .product_image_data(command.getDetailImageData())
+        .thumbnailImageData(command.getThumbnailImageData())
+        .productImageData(command.getDetailImageData())
+        .productStatus(ProductStatus.ACTIVE)
         .category(category)
         .build();
-    product.activateProduct();
-    return product;
   }
 
   public void update(UpdateProductRequest command, Category category) {
@@ -88,11 +85,16 @@ public class Product {
     this.publisherName = command.getPublisherName();
     this.authorName = command.getAuthorName();
     this.translatorName = command.getTranslatorName();
+    this.description = command.getDescription();
     this.purchasePrice = command.getPurchasePrice();
     this.unitPrice = command.getUnitPrice();
     this.discountPrice = command.getDiscountPrice();
     this.sellingPrice = command.getSellingPrice();
-    this.thumbnail_image_data = command.getThumbnailImageData();
-    this.product_image_data = command.getDetailImageData();
+    this.thumbnailImageData = command.getThumbnailImageData();
+    this.productImageData = command.getDetailImageData();
+  }
+
+  public void delete() {
+    this.productStatus = ProductStatus.INACTIVE;
   }
 }

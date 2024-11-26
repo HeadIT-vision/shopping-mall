@@ -31,6 +31,13 @@ input {
     border-radius: 6px;
     box-sizing: border-box;
 }
+textarea {
+    padding: 6px 10px;
+    border: 1px solid #EAEAEA;
+    border-radius: 6px;
+    box-sizing: border-box;
+    resize: none;
+}
 input:focus, select:focus {
     border-color: #EAEAEA;
     outline: none;
