@@ -21,7 +21,13 @@ import org.springframework.stereotype.Service;
 public class ProductService {
   private final ProductRepository productRepository;
   private final CategoryRepository categoryRepository;
-  
+
+  public Page<ProductListResponse> getProductsBy(int page, String title, Long categoryId) {
+    PageRequest pageRequest = PageRequest.of(page, 10);
+    Page<Product> productPage = productRepository.getProductsBy(pageRequest, title, categoryId);
+    return productPage.map(ProductListResponse::from);
+  }
+
   public Page<ProductListResponse> getProducts(int page) {
     PageRequest pageRequest = PageRequest.of(page, 10);
     Page<Product> productPage = productRepository.findAll(pageRequest);

@@ -25,6 +25,20 @@ public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
 
+    // GET:/search, "필터링된 상품 목록 조회 페이지"
+    @GetMapping("/search")
+    public String getProductListBy(Model model,
+       @RequestParam(value = "page", defaultValue = "0") int page,
+       @RequestParam(value = "title", required = false) String title,
+       @RequestParam(value = "categoryId", required = false) Long categoryId
+    ) {
+
+        Page<ProductListResponse> paging
+            = productService.getProductsBy(page, title, categoryId);
+        model.addAttribute("paging", paging);
+        return "product/list"; // 템플릿을 렌더링
+    }
+
     // GET:/list, "상품 목록 조회 페이지"
     @GetMapping("")
     public String getProductList(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
